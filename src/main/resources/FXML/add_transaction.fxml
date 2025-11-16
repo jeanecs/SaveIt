@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21.0.2"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="saveit.controller.AddTransactionController"
+            stylesheets="@../CSS/AddTransaction.css"
+            style="-fx-background-color: #F5F7FA;">
+
+    <VBox spacing="25" alignment="TOP_CENTER"
+          AnchorPane.topAnchor="30"
+          AnchorPane.leftAnchor="40"
+          AnchorPane.rightAnchor="40"
+          AnchorPane.bottomAnchor="30">
+
+        <!-- Header -->
+        <Label text="Add Transaction"
+               style="-fx-font-size: 24px; -fx-font-weight: 600; -fx-text-fill: #1a1a1a;" />
+
+        <!-- Form Card -->
+        <VBox spacing="20" prefWidth="650" maxWidth="650"
+              style="-fx-background-color: white;
+                     -fx-padding: 35;
+                     -fx-border-radius: 12;
+                     -fx-background-radius: 12;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0, 0, 3);">
+
+            <GridPane hgap="20" vgap="18">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50"/>
+                    <ColumnConstraints percentWidth="50"/>
+                </columnConstraints>
+
+                <!-- Type -->
+                <VBox spacing="8" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                    <Label text="Type"
+                           style="-fx-text-fill: #374151; -fx-font-size: 13px; -fx-font-weight: 500;"/>
+                    <ComboBox fx:id="typeComboBox"
+                              promptText="Expense"
+                              prefWidth="280"
+                              style="-fx-background-color: #F9FAFB;
+                                     -fx-border-color: #E5E7EB;
+                                     -fx-border-radius: 8;
+                                     -fx-background-radius: 8;
+                                     -fx-padding: 10;"/>
+                </VBox>
+
+                <!-- Category -->
+                <VBox spacing="8" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                    <Label text="Category"
+                           style="-fx-text-fill: #374151; -fx-font-size: 13px; -fx-font-weight: 500;"/>
+                    <ComboBox fx:id="categoryComboBox"
+                              promptText="Select category"
+                              prefWidth="280"
+                              style="-fx-background-color: #F9FAFB;
+                                     -fx-border-color: #E5E7EB;
+                                     -fx-border-radius: 8;
+                                     -fx-background-radius: 8;
+                                     -fx-padding: 10;"/>
+                </VBox>
+
+                <!-- Amount -->
+                <VBox spacing="8" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                    <Label text="Amount (₱)"
+                           style="-fx-text-fill: #374151; -fx-font-size: 13px; -fx-font-weight: 500;"/>
+                    <TextField fx:id="amountField"
+                               promptText="0.00"
+                               prefWidth="280"
+                               style="-fx-background-color: #F9FAFB;
+                                      -fx-border-color: #E5E7EB;
+                                      -fx-border-radius: 8;
+                                      -fx-background-radius: 8;
+                                      -fx-padding: 10;"/>
+                </VBox>
+
+                <!-- Date -->
+                <VBox spacing="8" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                    <Label text="Date"
+                           style="-fx-text-fill: #374151; -fx-font-size: 13px; -fx-font-weight: 500;"/>
+                    <DatePicker fx:id="datePicker"
+                                prefWidth="280"
+                                style="-fx-background-color: #F9FAFB;
+                                       -fx-border-color: #E5E7EB;
+                                       -fx-border-radius: 8;
+                                       -fx-background-radius: 8;"/>
+                </VBox>
+
+                <!-- Notes -->
+                <VBox spacing="8" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                    <Label text="Notes (Optional)"
+                           style="-fx-text-fill: #374151; -fx-font-size: 13px; -fx-font-weight: 500;"/>
+                    <TextArea fx:id="notesArea"
+                              prefHeight="90"
+                              promptText="Add any additional notes..."
+                              wrapText="true"
+                              style="-fx-background-color: #F9FAFB;
+                                     -fx-border-color: #E5E7EB;
+                                     -fx-border-radius: 8;
+                                     -fx-background-radius: 8;
+                                     -fx-padding: 10;"/>
+                </VBox>
+
+            </GridPane>
+
+            <!-- Buttons -->
+            <HBox spacing="15" alignment="CENTER" style="-fx-padding: 15 0 0 0;">
+                <Button fx:id="saveButton" text="Save Transaction"
+                        onAction="#handleSave"
+                        style="-fx-background-color: #00BFA6;
+                               -fx-text-fill: white;
+                               -fx-background-radius: 8;
+                               -fx-pref-width: 180;
+                               -fx-pref-height: 44;
+                               -fx-font-size: 14px;
+                               -fx-font-weight: 500;
+                               -fx-cursor: hand;"/>
+                <Button fx:id="cancelButton" text="Cancel"
+                        onAction="#handleCancel"
+                        style="-fx-background-color: white;
+                               -fx-border-color: #D1D5DB;
+                               -fx-border-width: 1.5;
+                               -fx-text-fill: #374151;
+                               -fx-border-radius: 8;
+                               -fx-background-radius: 8;
+                               -fx-pref-width: 180;
+                               -fx-pref-height: 44;
+                               -fx-font-size: 14px;
+                               -fx-font-weight: 500;
+                               -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
+
+        <!-- Transactions Section -->
+        <VBox spacing="15" prefWidth="650" maxWidth="650">
+            <Label text="Today's Transactions"
+                   style="-fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: #1a1a1a;" />
+
+            <StackPane prefHeight="280"
+                       style="-fx-background-color: white;
+                              -fx-background-radius: 12;
+                              -fx-border-radius: 12;
+                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0, 0, 3);">
+
+                <TableView fx:id="transactionTable"
+                           VBox.vgrow="ALWAYS"
+                           style="-fx-background-color: transparent;
+                                  -fx-border-color: transparent;">
+                    <columns>
+                        <TableColumn fx:id="dateCol" text="Date" prefWidth="120"/>
+                        <TableColumn fx:id="categoryCol" text="Category" prefWidth="150"/>
+                        <TableColumn fx:id="typeCol" text="Type" prefWidth="120"/>
+                        <TableColumn fx:id="amountCol" text="Amount (₱)" prefWidth="120"/>
+                        <TableColumn fx:id="notesCol" text="Notes" prefWidth="140"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="No transactions today"
+                               style="-fx-text-fill: #9CA3AF; -fx-font-size: 14px;"/>
+                    </placeholder>
+                </TableView>
+            </StackPane>
+        </VBox>
+
+    </VBox>
+
+</AnchorPane>

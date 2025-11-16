@@ -1,0 +1,78 @@
+/* Sidebar Container */
+.sidebar {
+    -fx-background-color: white;
+    -fx-border-color: #F8FAFB;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 0;
+}
+
+/* Logo Section */
+.sidebar-logo-section {
+    -fx-padding: 20;
+    -fx-border-color: #F8FAFB;
+    -fx-border-width: 0 0 1 0;
+}
+
+.logo-box {
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+    -fx-background-radius: 10;
+    -fx-background-color: linear-gradient(to bottom right, #00BFA6, #2F4858);
+    -fx-alignment: center;
+}
+
+.logo-icon {
+    -fx-font-size: 20px;
+}
+
+.logo-text {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2F4858;
+}
+
+/* Menu */
+.sidebar-menu {
+    -fx-padding: 20 15;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2F4858;
+    -fx-padding: 10 15;
+    -fx-background-radius: 12;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 14px;
+}
+
+/* Hover */
+.sidebar-btn:hover {
+    -fx-background-color: #F8FAFB;
+}
+
+/* Disabled Menu Buttons */
+.disabled-btn {
+    -fx-opacity: 0.3;
+}
+
+.sidebar-active {
+    -fx-background-color: #00BFA6;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+}
+
+
+/* Footer */
+.sidebar-footer {
+    -fx-padding: 20 0;
+    -fx-border-color: #F8FAFB;
+    -fx-border-width: 1 0 0 0;
+    -fx-text-fill: #2F4858;
+    -fx-opacity: 0.5;
+}
+
+/* Active button */
+.active-btn {
+    -fx-background-color: #00BFA6;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,191,166,0.3), 8, 0, 0, 2);
+}

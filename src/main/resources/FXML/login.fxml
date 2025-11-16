@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="saveit.controller.LoginController"
+            stylesheets="@../CSS/login.css">
+
+    <!-- Gradient Background -->
+    <StackPane prefWidth="800" prefHeight="600" styleClass="login-root">
+        <Pane styleClass="bg-shape shape1"/>
+        <Pane styleClass="bg-shape shape2"/>
+
+        <!-- Center Content -->
+        <VBox alignment="CENTER" spacing="15" styleClass="login-container">
+
+            <!-- Logo & Title -->
+            <VBox alignment="CENTER" spacing="10">
+                <StackPane styleClass="logo-box">
+                    <Label text="💰" styleClass="logo-icon"/>
+                </StackPane>
+                <Label text="SaveIT 💰" styleClass="title"/>
+                <Label text="Track your expenses. Grow your savings."
+                       styleClass="subtitle"/>
+            </VBox>
+
+            <!-- Card -->
+            <VBox styleClass="card" spacing="20">
+                <Label fx:id="messageLabel" text="" styleClass="message"/>
+
+                <VBox spacing="8">
+                    <Label text="Username" styleClass="label"/>
+                    <TextField fx:id="usernameField" promptText="Enter your username"
+                               styleClass="input"/>
+                </VBox>
+
+                <VBox spacing="8">
+                    <Label text="Password" styleClass="label"/>
+                    <PasswordField fx:id="passwordField" promptText="Enter your password"
+                                   styleClass="input"/>
+                </VBox>
+
+                <Button text="Login" onAction="#handleLogin"
+                        styleClass="btn-primary"/>
+                <Button text="Create Account" onAction="#handleRegister"
+                        styleClass="btn-secondary"/>
+            </VBox>
+
+            <Label text="Secure • Private • Easy to use"
+                   styleClass="footer"/>
+
+        </VBox>
+    </StackPane>
+</AnchorPane>

@@ -1,0 +1,113 @@
+/* --- General Styling --- */
+.root {
+    -fx-background-color: #f0f2f5; /* Light grey background for the entire app */
+    -fx-font-family: "Inter", "Segoe UI", sans-serif; /* Prioritize a modern font like Inter, fallback to Segoe UI */
+    -fx-text-fill: #333333; /* Darker text for readability on light background */
+}
+
+.label {
+    -fx-text-fill: #333333;
+}
+
+/* --- Sidebar (Left Navigation) --- */
+.sidebar {
+    -fx-background-color: #ffffff; /* White background for the sidebar */
+    -fx-padding: 20px 0px 20px 0px; /* Padding top/bottom, 0 left/right for full-width nav items */
+    -fx-spacing: 10px; /* Tighter spacing for navigation items */
+    -fx-alignment: TOP_CENTER; /* Keep logo and nav items centered */
+    -fx-border-color: #e0e0e0; /* Subtle right border for separation */
+    -fx-border-width: 0 1px 0 0;
+}
+
+.logo {
+    -fx-text-fill: #333333; /* Darker logo text */
+    -fx-font-size: 24px; /* Slightly smaller, more refined */
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 20px 0; /* Add bottom padding to separate from nav buttons */
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #666666; /* Muted text for inactive buttons */
+    -fx-font-size: 14px;
+    -fx-pref-width: 180px; /* Slightly wider buttons for better click area */
+    -fx-alignment: CENTER_LEFT; /* Align text to the left */
+    -fx-padding: 10px 20px; /* More vertical padding */
+    -fx-graphic-text-gap: 10px; /* If you add icons later */
+}
+
+.nav-button:hover {
+    -fx-background-color: #e8eaf6; /* Light hover background */
+    -fx-text-fill: white; /* Accent color on hover */
+    -fx-background-radius: 5px; /* Slightly rounded corners */
+}
+
+/* You'll need to add a class for the currently active button */
+.nav-button:focused, .nav-button.active {
+    -fx-background-color: #e8f0fe; /* More prominent background for active */
+    -fx-text-fill: #1a73e8; /* Stronger accent color for active */
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-border-color: #1a73e8; /* Left border to indicate active */
+    -fx-border-width: 0 0 0 3px;
+    -fx-padding: 10px 20px 10px 17px; /* Adjust padding due to border width */
+}
+
+
+/* --- Header (Top Bar) --- */
+.header {
+    -fx-background-color: #ffffff; /* White header background */
+    -fx-padding: 15px 20px; /* More padding for a spacious feel */
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: #e0e0e0; /* Subtle bottom border */
+    -fx-border-width: 0 0 1px 0;
+}
+
+.header-title {
+    -fx-text-fill: #333333; /* Darker title text */
+    -fx-font-size: 22px; /* Slightly larger, more pronounced */
+    -fx-font-weight: bold;
+}
+
+/* --- Main Content Area --- */
+.content {
+    -fx-background-color: #f0f2f5; /* Match root background for a seamless look */
+    -fx-padding: 20px; /* Generous padding around the content */
+}
+
+.page-title { /* For specific page titles within the content */
+    -fx-text-fill: #333333;
+    -fx-font-size: 28px; /* Larger for main page titles */
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 20px 0; /* Add bottom padding */
+}
+
+/* --- General Form Elements (if used in content) --- */
+.text-field, .password-field {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-text-fill: #333333;
+    -fx-prompt-text-fill: #999999; /* Lighter prompt text */
+    -fx-border-color: #cccccc; /* Lighter border */
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8px 12px; /* More padding */
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #1a73e8; /* Accent color on focus */
+}
+
+/* --- Primary Action Buttons (if used in content) --- */
+.button {
+    -fx-background-color: #1a73e8; /* A strong blue accent color */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #155bb5; /* Darker blue on hover */
+    -fx-cursor: hand;
+}

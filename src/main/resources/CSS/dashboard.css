@@ -1,0 +1,45 @@
+/* Pie Chart Styling */
+.default-color0.chart-pie { -fx-pie-color: #FF6B6B; }
+.default-color1.chart-pie { -fx-pie-color: #FFA726; }
+.default-color2.chart-pie { -fx-pie-color: #66BB6A; }
+.default-color3.chart-pie { -fx-pie-color: #42A5F5; }
+.default-color4.chart-pie { -fx-pie-color: #7E57C2; }
+.default-color5.chart-pie { -fx-pie-color: #26C6DA; }
+.default-color6.chart-pie { -fx-pie-color: #FFCA28; }
+.default-color7.chart-pie { -fx-pie-color: #78909C; }
+
+/* Chart general styling */
+.chart {
+    -fx-background-color: transparent;
+}
+
+.chart-plot-background {
+    -fx-background-color: white;
+}
+
+/* Style chart axes */
+.axis {
+    -fx-tick-label-fill: #2F4858;
+    -fx-font-size: 11px;
+}
+
+.axis-label {
+    -fx-text-fill: #2F4858;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+/* Grid lines */
+.chart-vertical-grid-lines {
+    -fx-stroke: rgba(0, 0, 0, 0.05);
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: rgba(0, 0, 0, 0.08);
+}
+
+/* Chart legend */
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
