@@ -1,146 +1,187 @@
-💰 SaveIT — Personal Finance Management App
+Here is a **clean, structured, polished, GitHub-ready README.md** version of your text — with proper Markdown formatting, headings, icons, tables, highlights, and better readability.
 
-A JavaFX MVC-based Expense Tracker & Budgeting Tool
+You can copy–paste this directly into your `README.md` file.
+(If you want, I can also generate a **fancy version with badges**, or add images/screenshots.)
 
-SaveIT is a JavaFX-powered personal finance management application designed to help users monitor their income, expenses, monthly budget, and financial habits. Built using the MVC architecture and MySQL for data persistence, SaveIT provides an intuitive and visually appealing interface to help students and young professionals take control of their financial wellbeing.
+---
 
-🚀 Features
-✅ 1. User Authentication
+# 💰 **SaveIT — Personal Finance Management App**
 
-Secure login & registration system with hashed credentials and database-stored profiles.
+### *A JavaFX MVC-Based Expense Tracker & Budgeting Tool*
 
-✅ 2. Transaction Management (CRUD)
+SaveIT is a **JavaFX-powered personal finance application** that helps users track income, expenses, budgets, and financial habits. Built using **MVC architecture** with **MySQL persistence**, it offers a clean and intuitive UI designed for students and young professionals looking to take control of their finances.
+
+---
+
+## 🚀 **Features**
+
+### ✅ **1. User Authentication**
+
+* Secure login & registration
+* Hashed passwords
+* User profiles stored in MySQL
+
+---
+
+### ✅ **2. Transaction Management (CRUD)**
 
 Add, edit, delete, and view transactions:
 
-Category
+* Category
+* Amount
+* Type (Income / Expense)
+* Date
+* Notes
 
-Amount
+---
 
-Type (Income / Expense)
+### ✅ **3. Expense Categorization**
 
-Date
+Automatically groups spending into:
 
-Notes
+* 🍔 Food
+* 💡 Bills
+* 🚌 Transportation
+* 🎮 Entertainment
+* 💰 Savings
 
-✅ 3. Expense Categorization
+---
 
-Automatically groups transactions into categories such as:
+### ✅ **4. Analytics Dashboard**
 
-Food
+Interactive charts powered by JavaFX:
 
-Bills
+* 📊 Monthly income vs expenses
+* 🥧 Category spending (Pie Chart)
+* 📉 Expense history (Bar Chart)
 
-Transportation
+---
 
-Entertainment
+### ✅ **5. Budget Alerts & Monthly Goals**
 
-Savings
+The app notifies users when:
 
-✅ 4. Analytics Dashboard
+* They are **close to reaching their monthly budget**
+* They **exceed their limit**
 
-Includes data visualization using JavaFX charts:
+---
 
-Monthly income vs. expenses
+## 🗂️ **Extra Features**
 
-Category spending distribution (Pie Chart)
+* ✔ Local database persistence
+* ✔ Clean and modern JavaFX UI
+* ✔ Custom CSS styling
+* ✔ MVC folder structure
+* ✔ Scene switching with dynamic controllers
 
-History of expenses (Bar Chart)
+---
 
-✅ 5. Budget Alerts & Monthly Goals
+## 🛠 **Tech Stack**
 
-Users can set monthly limits; the app warns them when:
+| Category               | Tools / Frameworks                    |
+| ---------------------- | ------------------------------------- |
+| **Language**           | Java (JDK 17+)                        |
+| **UI**                 | JavaFX                                |
+| **Architecture**       | MVC                                   |
+| **Database**           | MySQL                                 |
+| **Optional Libraries** | ControlsFX, JFoenix                   |
+| **Tools**              | VS Code / IntelliJ, SceneBuilder, Git |
 
-They are nearing the limit
+---
 
-They exceeded the budget
+## 🏗 **MVC Architecture Overview**
 
-🗂️ Extra Features
-
-✔ Local database persistence
-✔ Clean UI using JavaFX + custom CSS
-✔ Modular MVC folder structure
-✔ Scene switching and dynamic controllers
-
-🛠️ Tech Stack
-Category	Tools / Frameworks
-Language	Java (JDK 17+)
-UI Framework	JavaFX
-Architecture	MVC
-Database	MySQL
-Libraries	ControlsFX / JFoenix (optional)
-Tools	VS Code, SceneBuilder, GitHub
-🏗️ MVC Architecture Overview
-Model
+### **Model**
 
 Handles:
 
-Database operations
+* Database operations
+* User data
+* Transaction & Category classes
+* Budget calculations
 
-User data
+### **View**
 
-Transaction & Category classes
+Built using **FXML + CSS**:
 
-Budget logic
+* Login screen
+* Dashboard
+* Add Transaction
+* Reports
 
-View
+### **Controller**
 
-Built using FXML + CSS:
+Responsible for:
 
-Login screen
+* UI action handling
+* Input validation
+* Updating data/models
+* Page transitions
 
-Dashboard
+---
 
-Add Transaction
+## 🎯 **Target Users**
 
-Reports
+* Students tracking allowance
+* Young professionals managing salary
+* Families monitoring expenses
+* Anyone improving financial awareness
 
-Controller
+---
 
-Manages:
+## 📸 **Working UI**
 
-UI actions
+Google Drive Demo Folder:
+👉 [https://drive.google.com/drive/folders/1QERcFaMGS56sFyB3jqbzA5w7QpDEh7gp?usp=sharing](https://drive.google.com/drive/folders/1QERcFaMGS56sFyB3jqbzA5w7QpDEh7gp?usp=sharing)
 
-Validation
+---
 
-Data updates
+# 📁 **Setup Instructions**
 
-Page transitions
+### **1. Clone the Repository**
 
-🎯 Target Users
-
-Students managing weekly allowance
-
-Young professionals handling monthly salary
-
-Household users tracking family expenses
-
-Anyone who wants better control of their finances
-
-📸 Working UI
-
-https://drive.google.com/drive/folders/1QERcFaMGS56sFyB3jqbzA5w7QpDEh7gp?usp=sharing
-
-📁 Setup Instructions
+```bash
 git clone https://github.com/your-username/saveit.git
 cd saveit
+```
 
-Import into VS Code
+---
 
-Install the JavaFX extension pack
+### **2. Import the Project**
 
-Set VM arguments (example):
+Open in **VS Code** or **IntelliJ**.
 
---module-path /path/to/javafx/lib --add-modules javafx.controls,javafx.fxml
+If using VS Code:
 
-Import Database
+* Install the **JavaFX Extension Pack**
 
-Import the included .sql file into MySQL:
+---
 
+### **3. Set VM Arguments**
+
+Example run configuration:
+
+```
+--module-path /path/to/javafx/lib 
+--add-modules javafx.controls,javafx.fxml
+```
+
+---
+
+### **4. Import the Database**
+
+Run the SQL file:
+
+```bash
 mysql -u root -p < saveit.sql
+```
 
-🙌 Developer
+---
 
-Jeane Eritch Diputado
+## 🙌 **Developer**
+
+**Jeane Eritch Diputado**
 BSCS — Object-Oriented Programming Project
-TTH 7:30–10:00 • Mr. Acuin
+TTH 7:30–10:00 • Instructor: Mr. Acuin
+
+
