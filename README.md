@@ -144,15 +144,3 @@ mysql -u root -p < saveit.sql
 Jeane Eritch Diputado
 BSCS — Object-Oriented Programming Project
 TTH 7:30–10:00 • Mr. Acuin
-
-📄 License
-
-MIT License — Free to use and modify.
-
-If you want, I can also:
-✅ generate the project logo
-✅ prepare a professional README banner
-✅ write the SQL schema section
-✅ generate badges (JavaFX, MySQL, MVC, Java 17)
-
-Just tell me!
