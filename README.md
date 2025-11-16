@@ -1,10 +1,3 @@
-Here is a **clean, structured, polished, GitHub-ready README.md** version of your text — with proper Markdown formatting, headings, icons, tables, highlights, and better readability.
-
-You can copy–paste this directly into your `README.md` file.
-(If you want, I can also generate a **fancy version with badges**, or add images/screenshots.)
-
----
-
 # 💰 **SaveIT — Personal Finance Management App**
 
 ### *A JavaFX MVC-Based Expense Tracker & Budgeting Tool*
