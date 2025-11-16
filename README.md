@@ -117,9 +117,9 @@ Household users tracking family expenses
 
 Anyone who wants better control of their finances
 
-📸 Screenshots / Demo
+📸 Working UI
 
-(Add images or a video link here once available)
+https://drive.google.com/drive/folders/1QERcFaMGS56sFyB3jqbzA5w7QpDEh7gp?usp=sharing
 
 📁 Setup Instructions
 git clone https://github.com/your-username/saveit.git
