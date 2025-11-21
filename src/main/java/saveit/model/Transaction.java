@@ -3,11 +3,21 @@ package saveit.model;
 import java.time.LocalDate;
 
 public class Transaction {
+    private int id;
     private String category;
     private String type;
     private double amount;
     private LocalDate date;
     private String notes;
+
+    public Transaction(int id, String type, String category, double amount, LocalDate date, String notes) {
+        this.id = id;
+        this.type = type;
+        this.category = category;
+        this.amount = amount;
+        this.date = date;
+        this.notes = notes;
+    }
 
     public Transaction(String type, String category, double amount, LocalDate date, String notes) {
         this.type = type;
@@ -17,6 +27,9 @@ public class Transaction {
         this.notes = notes;
     }
 
+    public int getId() {
+        return id;
+    }
     public String getCategory() {
         return category;
     }

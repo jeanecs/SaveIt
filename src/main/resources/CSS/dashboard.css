@@ -43,3 +43,44 @@
     -fx-background-color: transparent;
     -fx-padding: 10;
 }
+
+/* Fix selected row text color */
+.custom-table .table-row-cell:selected .table-cell {
+    -fx-text-fill: #2F4858;
+}
+
+.custom-table .table-row-cell:selected {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #2F4858;
+}
+
+/* Hover effect - darker shade */
+.custom-table .table-row-cell:hover {
+    -fx-background-color: #F5F5F5;
+    -fx-cursor: hand;
+}
+
+/* Hover effect when row is selected */
+.custom-table .table-row-cell:selected:hover {
+    -fx-background-color: #BBDEFB;
+}
+
+/* Fix focus styling */
+.custom-table .table-row-cell:focused {
+    -fx-background-color: #E3F2FD;
+}
+
+.custom-table .table-row-cell:focused .table-cell {
+    -fx-text-fill: #2F4858;
+}
+
+/* Remove default blue selection color */
+.custom-table .table-row-cell:selected .text {
+    -fx-fill: #2F4858;
+}
+
+/* Style for table cells */
+.custom-table .table-cell {
+    -fx-text-fill: #2F4858;
+    -fx-alignment: CENTER-LEFT;
+}

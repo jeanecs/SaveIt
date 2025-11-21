@@ -19,7 +19,7 @@ public class MainLayoutController {
     @FXML private StackPane contentArea;
     @FXML private Button btnDashboard;
     @FXML private Button btnAdd;
-    @FXML private Button btnReports;
+    //@FXML private Button btnReports;
     @FXML private Button btnLogout;
 
 
@@ -34,7 +34,9 @@ public class MainLayoutController {
         // Ensure UI updates happen on the JavaFX Application Thread and after injections
         javafx.application.Platform.runLater(() -> {
             if (contentArea != null) {
-
+                String cssPath = "/CSS/dashboard.css";
+                contentArea.getStylesheets().add(getClass().getResource("/CSS/sidebar.css").toExternalForm());
+                contentArea.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
                 showDashboard(null);
             }
         });
@@ -48,20 +50,18 @@ public class MainLayoutController {
 
     @FXML
     public void showDashboard(ActionEvent event) {
-
         loadPage("/FXML/dashboard.fxml");
     }
 
     @FXML
     public void showAddTransaction(ActionEvent event) {
-
         loadPageWithUser("/FXML/add_transaction.fxml");
     }
 
-    @FXML
-    public void showReports(ActionEvent event) {
 
-        loadPage("/FXML/reports.fxml");
+    @FXML
+    public void showBudget(ActionEvent event) {
+        loadPageWithUser("/FXML/budget.fxml");
     }
 
     @FXML

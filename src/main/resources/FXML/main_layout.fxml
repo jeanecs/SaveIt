@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?> <!-- Important for padding -->
 
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="saveit.controller.MainLayoutController"
             prefWidth="800" prefHeight="600">
 
@@ -29,7 +29,7 @@
                     style="-fx-background-color: transparent; -fx-text-fill: #2F4858; -fx-font-size: 14px;"/>
             <Button text="➕ Add Transaction" onAction="#showAddTransaction"
                     style="-fx-background-color: transparent; -fx-text-fill: #2F4858; -fx-font-size: 14px;"/>
-            <Button text="📊 Reports" onAction="#showReports"
+            <Button text="📊 Budget Manager" onAction="#showBudget"
                     style="-fx-background-color: transparent; -fx-text-fill: #2F4858; -fx-font-size: 14px;"/>
             <Button text="🚪 Logout" onAction="#handleLogout"
                     style="-fx-background-color: transparent; -fx-text-fill: #F45B69; -fx-font-size: 14px;"/>
@@ -38,7 +38,9 @@
 
     <!-- Main content area -->
     <center>
-        <StackPane fx:id="contentArea" style="-fx-background-color: #F8FAFB;"/>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #F8FAFB; -fx-background: #F8FAFB;">
+            <StackPane fx:id="contentArea" style="-fx-background-color: #F8FAFB;"/>
+        </ScrollPane>
     </center>
 
 </BorderPane>

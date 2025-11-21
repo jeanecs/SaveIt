@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- File: src/main/resources/FXML/budget.fxml -->
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="saveit.controller.BudgetGoalsController"
+      spacing="25"
+      stylesheets="@../CSS/budget-styles.css"
+      style="-fx-padding: 25;">
+
+    <!-- PAGE HEADER -->
+    <VBox spacing="5">
+        <Label text="Budget &amp; Goals" styleClass="page-title"/>
+        <Label text="Track your spending limits and financial goals" styleClass="page-subtitle"/>
+    </VBox>
+
+    <!-- ADD BUTTON ROW -->
+    <HBox alignment="CENTER_RIGHT">
+        <Button fx:id="addBudgetButton"
+                text="+  Add Budget"
+                styleClass="primary-action-btn"
+                onAction="#onAddBudgetClicked"/>
+    </HBox>
+
+    <!-- OVERALL BUDGET CARD -->
+    <VBox styleClass="card" spacing="15" style="-fx-padding: 20;">
+        <Label text="Overall Budget Status" styleClass="card-title"/>
+        <Label text="Current month overview" styleClass="card-subtitle"/>
+
+        <HBox alignment="CENTER_LEFT">
+            <Label text="Spent:" styleClass="small-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="totalSpentLabel" text="₱0.00" styleClass="small-label"/>
+        </HBox>
+
+        <ProgressBar fx:id="overallProgress"
+                     prefWidth="Infinity"
+                     progress="0.0"
+                     styleClass="budget-progress"/>
+
+        <HBox alignment="CENTER_LEFT">
+            <Label text="Remaining:" styleClass="small-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="remainingLabel" text="₱0.00" styleClass="small-label"/>
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT">
+            <Label text="Total Budgeted:" styleClass="small-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="totalBudgetedLabel" text="₱0.00" styleClass="small-label"/>
+        </HBox>
+    </VBox>
+
+    <!-- CATEGORY CARDS GRID -->
+    <FlowPane fx:id="categoriesFlow"
+              hgap="20" vgap="20"
+              prefWrapLength="900"
+              style="-fx-padding: 10;">
+        <!-- Cards added dynamically from controller -->
+    </FlowPane>
+
+</VBox>

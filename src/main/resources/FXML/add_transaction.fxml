@@ -20,8 +20,8 @@
         <Label text="Add Transaction"
                style="-fx-font-size: 24px; -fx-font-weight: 600; -fx-text-fill: #1a1a1a;" />
 
-        <!-- Form Card -->
-        <VBox spacing="20" prefWidth="650" maxWidth="650"
+        <!-- Form Card - Full Width -->
+        <VBox spacing="20" maxWidth="Infinity" VBox.vgrow="ALWAYS"
               style="-fx-background-color: white;
                      -fx-padding: 35;
                      -fx-border-radius: 12;
@@ -40,7 +40,7 @@
                            style="-fx-text-fill: #374151; -fx-font-size: 13px; -fx-font-weight: 500;"/>
                     <ComboBox fx:id="typeComboBox"
                               promptText="Expense"
-                              prefWidth="280"
+                              maxWidth="Infinity"
                               style="-fx-background-color: #F9FAFB;
                                      -fx-border-color: #E5E7EB;
                                      -fx-border-radius: 8;
@@ -54,7 +54,7 @@
                            style="-fx-text-fill: #374151; -fx-font-size: 13px; -fx-font-weight: 500;"/>
                     <ComboBox fx:id="categoryComboBox"
                               promptText="Select category"
-                              prefWidth="280"
+                              maxWidth="Infinity"
                               style="-fx-background-color: #F9FAFB;
                                      -fx-border-color: #E5E7EB;
                                      -fx-border-radius: 8;
@@ -68,7 +68,7 @@
                            style="-fx-text-fill: #374151; -fx-font-size: 13px; -fx-font-weight: 500;"/>
                     <TextField fx:id="amountField"
                                promptText="0.00"
-                               prefWidth="280"
+                               maxWidth="Infinity"
                                style="-fx-background-color: #F9FAFB;
                                       -fx-border-color: #E5E7EB;
                                       -fx-border-radius: 8;
@@ -81,7 +81,7 @@
                     <Label text="Date"
                            style="-fx-text-fill: #374151; -fx-font-size: 13px; -fx-font-weight: 500;"/>
                     <DatePicker fx:id="datePicker"
-                                prefWidth="280"
+                                maxWidth="Infinity"
                                 style="-fx-background-color: #F9FAFB;
                                        -fx-border-color: #E5E7EB;
                                        -fx-border-radius: 8;
@@ -94,6 +94,7 @@
                            style="-fx-text-fill: #374151; -fx-font-size: 13px; -fx-font-weight: 500;"/>
                     <TextArea fx:id="notesArea"
                               prefHeight="90"
+                              maxWidth="Infinity"
                               promptText="Add any additional notes..."
                               wrapText="true"
                               style="-fx-background-color: #F9FAFB;
@@ -133,8 +134,8 @@
             </HBox>
         </VBox>
 
-        <!-- Transactions Section -->
-        <VBox spacing="15" prefWidth="650" maxWidth="650">
+        <!-- Transactions Section - Full Width -->
+        <VBox spacing="15" maxWidth="Infinity" VBox.vgrow="ALWAYS">
             <Label text="Today's Transactions"
                    style="-fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: #1a1a1a;" />
 
@@ -153,7 +154,8 @@
                         <TableColumn fx:id="categoryCol" text="Category" prefWidth="150"/>
                         <TableColumn fx:id="typeCol" text="Type" prefWidth="120"/>
                         <TableColumn fx:id="amountCol" text="Amount (₱)" prefWidth="120"/>
-                        <TableColumn fx:id="notesCol" text="Notes" prefWidth="140"/>
+                        <TableColumn fx:id="notesCol" text="Notes" prefWidth="300"/>
+                        <TableColumn fx:id="actionCol" text="Actions" prefWidth="100" minWidth="100" maxWidth="120" />
                     </columns>
                     <placeholder>
                         <Label text="No transactions today"

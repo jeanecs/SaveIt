@@ -22,8 +22,8 @@ public class SidebarController {
     }
 
     @FXML
-    private void handleReports(ActionEvent event) {
-        mainLayoutController.showReports(event);
+    private void handleBudget(ActionEvent event) {
+        mainLayoutController.showBudget(event);
     }
 
     @FXML

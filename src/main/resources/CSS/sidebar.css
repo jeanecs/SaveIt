@@ -1,78 +1,48 @@
-/* Sidebar Container */
+/* Sidebar Styling */
 .sidebar {
-    -fx-background-color: white;
-    -fx-border-color: #F8FAFB;
-    -fx-border-width: 0 1 0 0;
-    -fx-padding: 0;
+    -fx-background-color: #ffffff; /* White background for the sidebar */
+    -fx-padding: 20px; /* Padding for the sidebar */
+    -fx-spacing: 15px; /* Spacing between items */
+    -fx-alignment: TOP_LEFT; /* Align items to the top left */
+    -fx-border-color: #e0e0e0; /* Subtle border for separation */
+    -fx-border-width: 0 1px 0 0; /* Border on the right */
 }
 
-/* Logo Section */
-.sidebar-logo-section {
-    -fx-padding: 20;
-    -fx-border-color: #F8FAFB;
-    -fx-border-width: 0 0 1 0;
+.logo {
+    -fx-text-fill: #333333; /* Darker logo text */
+    -fx-font-size: 18px; /* Font size for the logo */
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 20px 0; /* Bottom padding for separation */
 }
 
-.logo-box {
-    -fx-pref-width: 40;
-    -fx-pref-height: 40;
-    -fx-background-radius: 10;
-    -fx-background-color: linear-gradient(to bottom right, #00BFA6, #2F4858);
-    -fx-alignment: center;
+.nav-button {
+    -fx-background-color: transparent; /* Transparent background for buttons */
+    -fx-text-fill: #666666; /* Muted text for inactive buttons */
+    -fx-font-size: 14px; /* Font size for buttons */
+    -fx-pref-width: 180px; /* Width of buttons */
+    -fx-alignment: CENTER_LEFT; /* Align text to the left */
+    -fx-padding: 10px 20px; /* Padding for buttons */
+    -fx-graphic-text-gap: 10px; /* Gap between icon and text */
 }
 
-.logo-icon {
-    -fx-font-size: 20px;
+.nav-button:hover {
+    -fx-background-color: #e8f0fe; /* Light hover background */
+    -fx-text-fill: #2F4858; /* Accent color on hover */
+    -fx-background-radius: 8px; /* Rounded corners */
 }
 
-.logo-text {
-    -fx-font-size: 16px;
-    -fx-text-fill: #2F4858;
+.nav-button:focused, .nav-button.active {
+    -fx-background-color: #00BFA6; /* Highlighted background for active button */
+    -fx-text-fill: white; /* White text for active button */
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px; /* Rounded corners */
+    -fx-padding: 10px 20px; /* Padding for active button */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2); /* Shadow effect */
 }
 
-/* Menu */
-.sidebar-menu {
-    -fx-padding: 20 15;
-}
-
-.sidebar-btn {
-    -fx-background-color: transparent;
-    -fx-text-fill: #2F4858;
-    -fx-padding: 10 15;
-    -fx-background-radius: 12;
-    -fx-alignment: CENTER_LEFT;
-    -fx-font-size: 14px;
-}
-
-/* Hover */
-.sidebar-btn:hover {
-    -fx-background-color: #F8FAFB;
-}
-
-/* Disabled Menu Buttons */
-.disabled-btn {
-    -fx-opacity: 0.3;
-}
-
-.sidebar-active {
-    -fx-background-color: #00BFA6;
-    -fx-text-fill: white;
-    -fx-background-radius: 10;
-}
-
-
-/* Footer */
-.sidebar-footer {
-    -fx-padding: 20 0;
-    -fx-border-color: #F8FAFB;
-    -fx-border-width: 1 0 0 0;
-    -fx-text-fill: #2F4858;
-    -fx-opacity: 0.5;
-}
-
-/* Active button */
-.active-btn {
-    -fx-background-color: #00BFA6;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,191,166,0.3), 8, 0, 0, 2);
+/.footer {
+    -fx-text-fill: #999999; /* Muted text for footer */
+    -fx-font-size: 12px; /* Font size for footer */
+    -fx-padding: 20px 0 0 0; /* Top padding for separation */
+    -fx-alignment: CENTER_LEFT; /* Align text to the left */
 }

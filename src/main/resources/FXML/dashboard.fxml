@@ -8,7 +8,6 @@
       fx:controller="saveit.controller.DashboardController"
       spacing="20"
       style="-fx-padding: 20;"
-
       prefHeight="900">
 
 
@@ -130,35 +129,48 @@
 
     <!-- CHARTS - INCREASED HEIGHT -->
     <HBox spacing="20" VBox.vgrow="ALWAYS" maxWidth="Infinity">
-
-        <PieChart fx:id="expensePieChart"
-                  HBox.hgrow="ALWAYS"
-                  VBox.vgrow="ALWAYS"
-                  maxWidth="Infinity"
-                  prefHeight="320"
-                  style="-fx-background-color: white;
+        <VBox spacing="10" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" maxWidth="Infinity">
+            <Label text="Expense Categories"
+                   style="-fx-font-size:16px; -fx-font-weight:bold; -fx-text-fill: #2F4858;"/>
+            <PieChart fx:id="expensePieChart"
+                      HBox.hgrow="ALWAYS"
+                      VBox.vgrow="ALWAYS"
+                      maxWidth="Infinity"
+                      prefHeight="320"
+                      legendVisible="false"
+                      labelsVisible="true"
+                      style="-fx-background-color: white;
                          -fx-background-radius: 20;
                          -fx-padding: 20;
                          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8,0,0,2);"/>
+        </VBox>
 
-        <BarChart fx:id="monthlyBarChart"
-                  HBox.hgrow="ALWAYS"
-                  VBox.vgrow="ALWAYS"
-                  maxWidth="Infinity"
-                  prefHeight="320"
-                  style="-fx-background-color: white;
+        <VBox spacing="10" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" maxWidth="Infinity">
+            <Label text="Monthly Income vs Expenses"
+                   style="-fx-font-size:16px; -fx-font-weight:bold; -fx-text-fill: #2F4858;"/>
+            <BarChart fx:id="monthlyBarChart"
+                      HBox.hgrow="ALWAYS"
+                      VBox.vgrow="ALWAYS"
+                      maxWidth="Infinity"
+                      prefHeight="320"
+                      categoryGap="30"
+                      barGap="5"
+                      legendVisible="true"
+                      legendSide="BOTTOM"
+                      style="-fx-background-color: white;
                          -fx-background-radius: 20;
                          -fx-padding: 20;
                          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8,0,0,2);">
-            <xAxis>
-                <CategoryAxis label="Month"/>
-            </xAxis>
-            <yAxis>
-                <NumberAxis label="Amount"/>
-            </yAxis>
-        </BarChart>
-
+                <xAxis>
+                    <CategoryAxis side="BOTTOM" tickLabelFill="#666666"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT" tickLabelFill="#666666" minorTickVisible="false"/>
+                </yAxis>
+            </BarChart>
+        </VBox>
     </HBox>
+
     <!-- RECENT TRANSACTIONS TABLE -->
     <VBox spacing="10" VBox.vgrow="ALWAYS"
           style="
@@ -181,6 +193,8 @@
                 <TableColumn fx:id="typeCol" text="Type" prefWidth="120"/>
                 <TableColumn fx:id="amountCol" text="Amount" prefWidth="120"/>
                 <TableColumn fx:id="notesCol" text="Notes" prefWidth="300"/>
+                <TableColumn fx:id="actionCol" text="Actions" prefWidth="100" minWidth="100" maxWidth="120" />
+
             </columns>
 
         </TableView>
