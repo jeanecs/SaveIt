@@ -11,7 +11,10 @@ SaveIT is a **JavaFX-powered personal finance application** that helps users tra
 ### ✅ **1. User Authentication**
 
 * Secure login & registration
-* Hashed passwords
+* Users can change passwords
+* Users can change usernmaes
+* usernames and emails are unique
+* user can register and login
 * User profiles stored in MySQL
 
 ---
@@ -47,15 +50,6 @@ Interactive charts powered by JavaFX:
 * 📊 Monthly income vs expenses
 * 🥧 Category spending (Pie Chart)
 * 📉 Expense history (Bar Chart)
-
----
-
-### ✅ **5. Budget Alerts & Monthly Goals**
-
-The app notifies users when:
-
-* They are **close to reaching their monthly budget**
-* They **exceed their limit**
 
 ---
 
@@ -100,7 +94,8 @@ Built using **FXML + CSS**:
 * Login screen
 * Dashboard
 * Add Transaction
-* Reports
+* Budget Manager
+* All Transactions (for filtering and searching)
 
 ### **Controller**
 
