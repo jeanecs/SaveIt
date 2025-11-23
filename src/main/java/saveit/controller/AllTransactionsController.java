@@ -167,12 +167,13 @@ public class AllTransactionsController {
                 Label chip = new Label(type);
                 // Inline styling from DashboardController
                 String chipStyle = type.equalsIgnoreCase("Income")
-                        ? "-fx-background-color: rgba(0,191,166,0.1); -fx-text-fill: #00BFA6; -fx-background-radius: 20; -fx-padding: 5 15 5 15;"
-                        : "-fx-background-color: rgba(249,168,38,0.1); -fx-text-fill: #F9A826; -fx-background-radius: 20; -fx-padding: 5 15 5 15;";
+                        ? "-fx-background-color: rgba(0,191,166,0.1); -fx-text-fill: #00BFA6; -fx-background-radius: 20; -fx-padding: 3 10 3 10; -fx-font-weight: normal;"
+                        : "-fx-background-color: rgba(249,168,38,0.1); -fx-text-fill: #F9A826; -fx-background-radius: 20; -fx-padding: 3 10 3 10; -fx-font-weight: normal;";
 
                 chip.setStyle(chipStyle);
                 setGraphic(chip);
                 setText(null);
+                setAlignment(Pos.CENTER);
             }
         });
 
