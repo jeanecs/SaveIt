@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="saveit.controller.AllTransactionsController"
+      styleClass="page-container"
+      stylesheets="@../CSS/allTransactions.css"
+      spacing="25"
+      style="-fx-padding: 25;" >
+
+    <!-- Page Title and Export Button -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <VBox>
+            <Label text="All Transactions" styleClass="page-title"/>
+            <Label text="View and manage your complete transaction history" styleClass="page-subtitle"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text=" Export" styleClass="btn-secondary" onAction="#handleExport">
+            <graphic><Label text="📥" styleClass="icon-button-graphic"/></graphic>
+        </Button>
+    </HBox>
+
+    <!-- Summary Cards (Income, Expenses, Net) - Now using styleClass="card" -->
+    <HBox spacing="20">
+        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <Label text="Total Income" styleClass="summary-label"/>
+            <Label fx:id="totalIncomeLabel" text="₱0.00" styleClass="summary-value income-color"/>
+        </VBox>
+        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <Label text="Total Expenses" styleClass="summary-label"/>
+            <Label fx:id="totalExpensesLabel" text="₱0.00" styleClass="summary-value expense-color"/>
+        </VBox>
+        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <Label text="Net" styleClass="summary-label"/>
+            <Label fx:id="netBalanceLabel" text="₱0.00" styleClass="summary-value net-color"/>
+        </VBox>
+    </HBox>
+
+    <!-- Filters Section - Using styleClass="filter-section" which now has explicit card styles -->
+    <VBox spacing="15" styleClass="filter-section">
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label text="Filters" styleClass="filter-label-icon"/>
+            <Label text="Filters" styleClass="filter-title"/>
+        </HBox>
+
+        <!-- Filter Row -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+
+            <!-- Search Field -->
+            <HBox styleClass="search-box" HBox.hgrow="ALWAYS">
+                <Label text="🔍" styleClass="search-icon"/>
+                <TextField fx:id="searchInput" promptText="Search transactions..." styleClass="search-input" HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <!-- Dropdowns -->
+            <ComboBox fx:id="dateRangeDropdown" promptText="All Time" styleClass="filter-dropdown" HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="categoryDropdown" promptText="All Categories" styleClass="filter-dropdown" HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="typeDropdown" promptText="All Types" styleClass="filter-dropdown" HBox.hgrow="ALWAYS"/>
+
+            <!-- Sort By Dropdown -->
+            <ComboBox fx:id="sortByDropdown" promptText="Date (Newest)" styleClass="filter-dropdown" HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </VBox>
+
+    <!-- Transactions List Header -->
+    <VBox spacing="10" VBox.vgrow="ALWAYS">
+        <Label fx:id="transactionsCountLabel" text="Loading Transactions..." styleClass="transactions-count"/>
+
+        <!-- Transaction Table -->
+        <TableView fx:id="transactionTable" styleClass="transaction-table" VBox.vgrow="ALWAYS">
+            <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+
+            <columns>
+                <TableColumn fx:id="dateColumn" text="Date" prefWidth="100.0"/>
+                <TableColumn fx:id="categoryColumn" text="Category" prefWidth="120.0"/>
+                <TableColumn fx:id="typeColumn" text="Type" prefWidth="100.0"/>
+                <TableColumn fx:id="amountColumn" text="Amount" prefWidth="120.0"/>
+                <TableColumn fx:id="notesColumn" text="Notes" prefWidth="250.0"/>
+                <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="100.0" styleClass="action-column"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+</VBox>

@@ -1,44 +1,49 @@
 package saveit.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import saveit.model.Transaction;
 import saveit.model.DatabaseManager;
+import saveit.model.Transaction;
+import saveit.util.IconUtil;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.scene.shape.SVGPath;
-import javafx.geometry.Insets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tooltip;
 
 
 public class DashboardController {
 
     @FXML private Label totalIncomeLabel;
     @FXML private Label totalExpenseLabel;
-    @FXML private Label balanceLabel; // new balance label
+    @FXML private Label balanceLabel;
+
+    // New FXML fields for trend indicators
+    @FXML private Label incomeTrendLabel;
+    @FXML private Label expenseTrendLabel;
+    @FXML private Label balanceTrendLabel;
+
     @FXML private PieChart expensePieChart;
     @FXML private BarChart<String, Number> monthlyBarChart;
     @FXML private TableView<Transaction> recentTransactionsTable;
@@ -47,9 +52,7 @@ public class DashboardController {
     @FXML private TableColumn<Transaction, Number> amountCol;
     @FXML private TableColumn<Transaction, String> notesCol;
     @FXML private TableColumn<Transaction, LocalDate> dateCol;
-    @FXML private TableColumn<Transaction, Void> actionCol; // New action column
-
-
+    @FXML private TableColumn<Transaction, Void> actionCol;
 
     private int userId;
 
@@ -57,6 +60,13 @@ public class DashboardController {
     public void initialize() {
         setupTable();
         setupActionColumn();
+
+        // Ensure main labels have white text color (assuming dark dashboard background)
+        String mainLabelStyle = "-fx-text-fill: white; -fx-font-weight: bold;";
+        totalIncomeLabel.setStyle(mainLabelStyle + "-fx-font-size: 24px;");
+        totalExpenseLabel.setStyle(mainLabelStyle + "-fx-font-size: 24px;");
+        balanceLabel.setStyle(mainLabelStyle + "-fx-font-size: 24px;");
+
 
         // Combined row factory with alternating colors, hover, and selection fix
         recentTransactionsTable.setRowFactory(tv -> new TableRow<Transaction>() {
@@ -154,7 +164,7 @@ public class DashboardController {
                 }
 
                 Transaction row = getTableView().getItems().get(getIndex());
-                setText("₱" + String.format("%,.2f", amount.doubleValue()));
+                setText("\u20B1" + String.format("%,.2f", amount.doubleValue()));
 
                 setStyle(
                         row.getType().equalsIgnoreCase("Income")
@@ -253,54 +263,158 @@ public class DashboardController {
 
     }
 
-    private void loadDashboardData() {
+    public void loadDashboardData() {
         loadTotals();
         loadPieChart();
-        loadMonthlyBarChart(); // <- use this instead of loadBarChart()
+        loadMonthlyBarChart();
         loadRecentTransactions();
     }
 
-    /* ------------------ TOTALS ------------------ */
+    /* ------------------ TOTALS & TRENDS ------------------ */
 
-    private void loadTotals() {
-        String incomeQuery =
-                "SELECT SUM(amount) AS total_income FROM transactions WHERE category='Income' AND user_id=?";
-        String expenseQuery =
-                "SELECT SUM(amount) AS total_expense FROM transactions WHERE category='Expense' AND user_id=?";
+    private static class MonthlySummary {
+        double income = 0;
+        double expense = 0;
+    }
 
-        try (Connection conn = DatabaseManager.getConnection()) {
+    /**
+     * Fetches the total income and expense for a given month.
+     * @param userId The ID of the user.
+     * @param monthKey The month key in 'YYYY-MM' format.
+     * @return A MonthlySummary object.
+     */
+    private MonthlySummary getMonthlySummary(int userId, String monthKey) {
+        MonthlySummary summary = new MonthlySummary();
+        String sql = """
+            SELECT
+                COALESCE(SUM(CASE WHEN type='Income' THEN amount ELSE 0 END), 0) AS total_income,
+                COALESCE(SUM(CASE WHEN type='Expense' THEN amount ELSE 0 END), 0) AS total_expense
+            FROM transactions
+            WHERE user_id=? AND DATE_FORMAT(date, '%Y-%m') = ?
+        """;
 
-            // INCOME
-            PreparedStatement stmt1 = conn.prepareStatement(incomeQuery);
-            stmt1.setInt(1, userId);
-            ResultSet rs1 = stmt1.executeQuery();
-            double income = 0;
-            if (rs1.next()) {
-                income = rs1.getDouble("total_income");
-                if (rs1.wasNull()) income = 0;
-                totalIncomeLabel.setText(String.format("\u20B1%,.2f", income));
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
+            stmt.setInt(1, userId);
+            stmt.setString(2, monthKey);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                summary.income = rs.getDouble("total_income");
+                summary.expense = rs.getDouble("total_expense");
             }
-
-            // EXPENSE
-            PreparedStatement stmt2 = conn.prepareStatement(expenseQuery);
-            stmt2.setInt(1, userId);
-            ResultSet rs2 = stmt2.executeQuery();
-            double expense = 0;
-            if (rs2.next()) {
-                expense = rs2.getDouble("total_expense");
-                if (rs2.wasNull()) expense = 0;
-                totalExpenseLabel.setText(String.format("\u20B1%,.2f", expense));
-
-            }
-
-            double balance = income - expense;
-            balanceLabel.setText(String.format("\u20B1%,.2f", balance));
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return summary;
     }
+
+    private void loadTotals() {
+        // Calculate the YYYY-MM key for the current and previous month
+        LocalDate now = LocalDate.now();
+        String currentMonthKey = now.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        String previousMonthKey = now.minusMonths(1).format(DateTimeFormatter.ofPattern("yyyy-MM"));
+
+        // Fetch data
+        MonthlySummary currentMonth = getMonthlySummary(userId, currentMonthKey);
+        MonthlySummary previousMonth = getMonthlySummary(userId, previousMonthKey);
+
+        // Current Month Totals
+        double currIncome = currentMonth.income;
+        double currExpense = currentMonth.expense;
+        double currBalance = currIncome - currExpense;
+
+        // Previous Month Totals
+        double prevIncome = previousMonth.income;
+        double prevExpense = previousMonth.expense;
+        double prevBalance = prevIncome - prevExpense;
+
+        // 1. Update Main Labels (Current Month)
+        totalIncomeLabel.setText(String.format("\u20B1%,.2f", currIncome));
+        totalExpenseLabel.setText(String.format("\u20B1%,.2f", currExpense));
+        balanceLabel.setText(String.format("\u20B1%,.2f", currBalance));
+
+        // 2. Update Trend Labels
+        updateTrendLabel(incomeTrendLabel, currIncome, prevIncome, "income");
+        updateTrendLabel(expenseTrendLabel, currExpense, prevExpense, "expense");
+        updateTrendLabel(balanceTrendLabel, currBalance, prevBalance, "balance");
+    }
+
+    /**
+     * Creates an HBox graphic containing the SVG icon and the trend text.
+     */
+    private HBox createTrendGraphic(SVGPath icon, String trendText, String colorHex) {
+        Label textLabel = new Label(trendText);
+        textLabel.setStyle("-fx-text-fill: " + colorHex + "; -fx-font-weight: bold; -fx-font-size: 13px;");
+
+        // Update the icon fill color
+        icon.setFill(Color.web(colorHex));
+
+        HBox graphic = new HBox(5, icon, textLabel);
+        graphic.setAlignment(Pos.CENTER_LEFT);
+        return graphic;
+    }
+
+    /**
+     * Calculates the percentage change and updates the trend label with the correct arrow (SVG) and color.
+     * @param label The FXML Label to update.
+     * @param current The current month's value.
+     * @param previous The previous month's value.
+     * @param type The type of metric (income, expense, or balance) to determine trend direction.
+     */
+    private void updateTrendLabel(Label label, double current, double previous, String type) {
+        String colorHex;
+        String trendText;
+        double change;
+        SVGPath trendIcon;
+
+        // Default style for non-trend cases
+        final String NEUTRAL_COLOR = "#E0E0E0"; // Light gray/white for visibility
+
+        if (previous == 0) {
+            trendIcon = IconUtil.plusIcon(0.8, Color.web(NEUTRAL_COLOR));
+            if (current > 0) {
+                trendText = "NEW DATA";
+            } else {
+                trendText = "No data last month";
+            }
+            label.setGraphic(createTrendGraphic(trendIcon, trendText, NEUTRAL_COLOR));
+            label.setText(null); // Use graphic instead of text
+            return;
+        }
+
+        change = ((current - previous) / previous) * 100;
+        String sign = change >= 0 ? "+" : "";
+
+        // Handle no change
+        if (Math.abs(change) < 0.01) {
+            trendIcon = IconUtil.plusIcon(0.8, Color.web(NEUTRAL_COLOR)); // Use plus or a dash icon for no change
+            trendText = "Same as last month";
+            label.setGraphic(createTrendGraphic(trendIcon, trendText, NEUTRAL_COLOR));
+            label.setText(null);
+            return;
+        }
+
+        // Determine icon and color based on metric type and change
+        boolean isPositiveTrend;
+        if (type.equalsIgnoreCase("income") || type.equalsIgnoreCase("balance")) {
+            isPositiveTrend = change >= 0;
+            // Income/Balance: Green for increase (good), Red for decrease (bad)
+            trendIcon = isPositiveTrend ? IconUtil.arrowUpIcon(0.8, Color.web(NEUTRAL_COLOR)) : IconUtil.arrowDownIcon(0.8, Color.web(NEUTRAL_COLOR));
+        } else { // Expense
+            isPositiveTrend = change <= 0;
+            // Expense: Green for decrease (good), Red for increase (bad)
+            trendIcon = isPositiveTrend ? IconUtil.arrowDownIcon(0.8, Color.web(NEUTRAL_COLOR)) : IconUtil.arrowUpIcon(0.8, Color.web(NEUTRAL_COLOR));
+        }
+
+        trendText = String.format("%s%.1f%% from last month", sign, Math.abs(change));
+
+        // Set the graphic (icon + text) instead of just the text
+        label.setGraphic(createTrendGraphic(trendIcon, trendText, NEUTRAL_COLOR));
+        label.setText(null); // Clear text content since we are using the graphic
+    }
+
 
     /* ------------------ RECENT TRANSACTIONS ------------------ */
 
@@ -344,16 +458,21 @@ public class DashboardController {
     private void loadPieChart() {
         expensePieChart.getData().clear();
 
+        // Filter by current month for relevance
+        LocalDate now = LocalDate.now();
+        String currentMonthKey = now.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+
         String sql = """
             SELECT category, SUM(amount) AS total
-            FROM transactions 
-            WHERE type='Expense' AND user_id=?
+            FROM transactions
+            WHERE type='Expense' AND user_id=? AND DATE_FORMAT(date, '%Y-%m') = ?
             GROUP BY category
         """;
 
         try (Connection conn = DatabaseManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
+            stmt.setString(2, currentMonthKey);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -367,39 +486,8 @@ public class DashboardController {
         }
     }
 
+
     /* ------------------ MONTHLY BAR CHART ------------------ */
-
-    private void loadBarChart() {
-        monthlyBarChart.getData().clear();
-
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Monthly Total");
-
-        String sql = """
-            SELECT MONTHNAME(date) AS month, SUM(amount) AS total
-            FROM transactions
-            WHERE user_id=?
-            GROUP BY MONTH(date)
-            ORDER BY MONTH(date)
-        """;
-
-        try (Connection conn = DatabaseManager.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, userId);
-
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                series.getData().add(
-                        new XYChart.Data<>(rs.getString("month"), rs.getDouble("total"))
-                );
-            }
-
-            monthlyBarChart.getData().add(series);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private void loadMonthlyBarChart() {
         monthlyBarChart.getData().clear();
@@ -410,17 +498,17 @@ public class DashboardController {
         XYChart.Series<String, Number> expenseSeries = new XYChart.Series<>();
         expenseSeries.setName("Expense");
 
+        // The query is fine, but I'll ensure it only shows the last 6 months for better visual clarity
         String sql = """
     SELECT
         DATE_FORMAT(date, '%Y-%m') AS month_key,
         MONTHNAME(date) AS month,
-        MONTH(date) AS month_num,
         COALESCE(SUM(CASE WHEN type='Income' THEN amount END), 0) AS income,
         COALESCE(SUM(CASE WHEN type='Expense' THEN amount END), 0) AS expense
     FROM transactions
-    WHERE user_id=?
-    GROUP BY DATE_FORMAT(date, '%Y-%m'), MONTHNAME(date), MONTH(date)
-    ORDER BY DATE_FORMAT(date, '%Y-%m')
+    WHERE user_id=? AND date >= DATE_SUB(LAST_DAY(CURRENT_DATE()), INTERVAL 5 MONTH)
+    GROUP BY month_key, month
+    ORDER BY month_key
 """;
 
         try (Connection conn = DatabaseManager.getConnection()) {
@@ -432,8 +520,6 @@ public class DashboardController {
                 String month = rs.getString("month");
                 double income = rs.getDouble("income");
                 double expense = rs.getDouble("expense");
-
-                // handle nulls
 
                 incomeSeries.getData().add(new XYChart.Data<>(month, income));
                 expenseSeries.getData().add(new XYChart.Data<>(month, expense));
@@ -450,9 +536,11 @@ public class DashboardController {
 
     private void setupActionColumn() {
         actionCol.setCellFactory(param -> new TableCell<>() {
-            private final Button deleteButton = createIconButton(createDeleteIcon(), "delete-button");
-            private final Button editButton = createIconButton(createEditIcon(), "edit-button");
-            private final HBox pane = new HBox(8, deleteButton, editButton);
+            // Use IconUtil for cleaner code and consistent sizing/coloring logic
+            final String NEUTRAL_COLOR = "#E0E0E0";
+            private final Button deleteButton = createIconButton(IconUtil.deleteIcon(0.8, Color.web(NEUTRAL_COLOR)), "delete-button");
+            private final Button editButton = createIconButton(IconUtil.editIcon(0.8, Color.web(NEUTRAL_COLOR)), "edit-button");
+            private final HBox pane = new HBox(8, editButton, deleteButton);
 
             {
                 pane.setAlignment(javafx.geometry.Pos.CENTER);
@@ -481,70 +569,14 @@ public class DashboardController {
         });
     }
 
-    // Helper method to create circular icon buttons
     private Button createIconButton(SVGPath icon, String styleClass) {
         Button button = new Button();
         button.setGraphic(icon);
-
-        String borderColor = styleClass.contains("delete") ? "#F45B69" : "#2F4858";
-
-        button.setStyle("-fx-background-radius: 8; " +
-                "-fx-border-radius: 8; " +
-                "-fx-min-width: 32px; " +
-                "-fx-max-width: 32px; " +
-                "-fx-min-height: 32px; " +
-                "-fx-max-height: 32px; " +
-                "-fx-cursor: hand; " +
-                "-fx-padding: 0; " +
-                "-fx-background-color: transparent; " +
-                "-fx-border-color: " + borderColor + "; " +
-                "-fx-border-width: 2;");
-
-        // Add hover effect - fill background on hover
-        button.setOnMouseEntered(e -> {
-            String hoverColor = styleClass.contains("delete") ? "#F45B69" : "#2F4858";
-            button.setStyle("-fx-background-radius: 8; " +
-                    "-fx-border-radius: 8; " +
-                    "-fx-min-width: 32px; " +
-                    "-fx-max-width: 32px; " +
-                    "-fx-min-height: 32px; " +
-                    "-fx-max-height: 32px; " +
-                    "-fx-cursor: hand; " +
-                    "-fx-padding: 0; " +
-                    "-fx-background-color: " + hoverColor + "; " +
-                    "-fx-border-color: " + hoverColor + "; " +
-                    "-fx-border-width: 2; " +
-                    "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);");
-
-            // Change icon to white on hover
-            icon.setFill(javafx.scene.paint.Color.WHITE);
-        });
-
-        button.setOnMouseExited(e -> {
-            String borderColor2 = styleClass.contains("delete") ? "#F45B69" : "#2F4858";
-            button.setStyle("-fx-background-radius: 8; " +
-                    "-fx-border-radius: 8; " +
-                    "-fx-min-width: 32px; " +
-                    "-fx-max-width: 32px; " +
-                    "-fx-min-height: 32px; " +
-                    "-fx-max-height: 32px; " +
-                    "-fx-cursor: hand; " +
-                    "-fx-padding: 0; " +
-                    "-fx-background-color: transparent; " +
-                    "-fx-border-color: " + borderColor2 + "; " +
-                    "-fx-border-width: 2;");
-
-            // Change icon back to border color
-            javafx.scene.paint.Color iconColor = styleClass.contains("delete")
-                    ? javafx.scene.paint.Color.web("#F45B69")
-                    : javafx.scene.paint.Color.web("#2F4858");
-            icon.setFill(iconColor);
-        });
-
-        // Add tooltip
-        Tooltip tooltip = new Tooltip(styleClass.contains("delete") ? "Delete" : "Edit");
-        button.setTooltip(tooltip);
-
+        button.getStyleClass().add("icon-btn"); // Use a style class for consistency
+        // Add specific class for delete if needed for color override
+        if (styleClass.contains("delete")) {
+            button.getStyleClass().add("delete-icon-btn");
+        }
         return button;
     }
 
@@ -596,25 +628,8 @@ public class DashboardController {
         }
     }
 
-    private SVGPath createDeleteIcon() {
-        SVGPath deleteIcon = new SVGPath();
-        // Trash can icon
-        deleteIcon.setContent("M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z");
-        deleteIcon.setScaleX(0.55);
-        deleteIcon.setScaleY(0.55);
-        deleteIcon.setFill(javafx.scene.paint.Color.web("#F45B69")); // Red color for delete
-        return deleteIcon;
-    }
-
-    private SVGPath createEditIcon() {
-        SVGPath editIcon = new SVGPath();
-        // Pencil/Edit icon
-        editIcon.setContent("M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z");
-        editIcon.setScaleX(0.55);
-        editIcon.setScaleY(0.55);
-        editIcon.setFill(javafx.scene.paint.Color.web("#2F4858")); // Dark blue color for edit
-        return editIcon;
-    }
+    // Removed the manual createDeleteIcon and createEditIcon as they are now handled by IconUtil
+    // private SVGPath createDeleteIcon() {...}
+    // private SVGPath createEditIcon() {...}
 
 }
-

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="saveit.controller.SettingsController"
+      styleClass="settings-root"
+      stylesheets="@../CSS/settings.css"
+      spacing="25">
+
+    <!-- Header Section -->
+    <VBox spacing="5">
+        <Label text="Settings" styleClass="page-title"/>
+        <Label text="Manage your account and application preferences" styleClass="page-subtitle"/>
+    </VBox>
+
+    <!-- Main Content Grid (Two Columns) -->
+    <GridPane hgap="25" vgap="25">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50.0"/>
+            <ColumnConstraints percentWidth="50.0"/>
+        </columnConstraints>
+
+        <!-- === LEFT COLUMN: Profile Settings === -->
+        <VBox GridPane.columnIndex="0" styleClass="settings-card" spacing="20">
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="card-header">
+                <Label text="👤" styleClass="icon-label"/>
+                <Label text="Profile Settings" styleClass="card-section-title"/>
+            </HBox>
+
+            <!-- Full Name -->
+            <VBox spacing="5">
+                <Label text="Username" styleClass="form-label-settings"/>
+                <TextField fx:id="fullNameField" promptText="John Doe" styleClass="input-settings"/>
+            </VBox>
+
+            <!-- Email Address -->
+            <VBox spacing="5">
+                <Label text="Email Address" styleClass="form-label-settings"/>
+                <TextField fx:id="emailField" promptText="john.doe@example.com" styleClass="input-settings"/>
+            </VBox>
+
+            <Button text="Save Profile" onAction="#handleSaveProfile" styleClass="btn-primary-settings"/>
+        </VBox>
+
+        <!-- === RIGHT COLUMN: Security === -->
+        <VBox GridPane.columnIndex="1" styleClass="settings-card" spacing="15"> <!-- Reduced spacing slightly for the denser password form -->
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="card-header">
+                <Label text="🔒" styleClass="icon-label"/>
+                <Label text="Security" styleClass="card-section-title"/>
+            </HBox>
+
+            <!-- Password Change Form -->
+            <VBox spacing="10" style="-fx-padding: 0 0 10 0;">
+                <Label text="Change Password" styleClass="card-section-title"/>
+
+                <!-- Current Password -->
+                <VBox spacing="5">
+                    <Label text="Current Password" styleClass="form-label-settings"/>
+                    <PasswordField fx:id="currentPasswordField" promptText="Enter your current password" styleClass="input-settings"/>
+                </VBox>
+
+                <!-- New Password -->
+                <VBox spacing="5">
+                    <Label text="New Password" styleClass="form-label-settings"/>
+                    <PasswordField fx:id="newPasswordField" promptText="Create a new password" styleClass="input-settings"/>
+                </VBox>
+
+                <!-- Confirm New Password -->
+                <VBox spacing="5">
+                    <Label text="Confirm New Password" styleClass="form-label-settings"/>
+                    <PasswordField fx:id="confirmNewPasswordField" promptText="Confirm your new password" styleClass="input-settings"/>
+                </VBox>
+
+                <Button text="Update Password" onAction="#handleChangePassword" styleClass="btn-secondary-settings"/>
+            </VBox>
+        </VBox>
+
+    </GridPane>
+
+    <!-- Optional: Placeholder for success/error messages -->
+    <Label fx:id="messageLabel" text="" styleClass="message-settings"/>
+
+</VBox>

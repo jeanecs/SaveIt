@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="saveit.controller.LoginController"
+            fx:controller="saveit.controller.RegisterController"
             stylesheets="@../CSS/login.css">
 
     <!-- Gradient Background: Anchored to fill the entire window -->
@@ -22,46 +27,59 @@
 
             <!-- Logo & Title Section (Centered above the card) -->
             <VBox alignment="CENTER" spacing="8">
-                <!-- WRAPPED IN HBOX: This is kept to center the logo since it has a fixed size -->
+                <!-- This HBox ensures the fixed-size logo remains centered -->
                 <HBox alignment="CENTER">
-                    <!-- Outer white rounded box (logo-outer) and inner teal rounded box (logo-inner) -->
                     <StackPane styleClass="logo-outer">
                         <StackPane styleClass="logo-inner">
                             <Label text="💰" styleClass="logo-icon"/>
                         </StackPane>
                     </StackPane>
                 </HBox>
-                <Label text="SaveIT 💰" styleClass="title"/>
-                <Label text="Track your expenses. Grow your savings."
+                <Label text="BudgetBuddy 💰" styleClass="title"/>
+                <Label text="Start tracking your expenses today!"
                        styleClass="subtitle"/>
             </VBox>
 
-            <!-- Card -->
-            <VBox styleClass="card" spacing="20">
-                <Label text="Welcome Back" styleClass="card-title"/>
+            <!-- Registration Card -->
+            <VBox styleClass="card" spacing="18">
+                <Label text="Create Your Account" styleClass="card-title"/>
 
                 <Label fx:id="messageLabel" text="" styleClass="message"/>
 
+                <!-- Username Field -->
                 <VBox spacing="8">
                     <Label text="Username" styleClass="form-label"/>
-                    <!-- Inputs naturally stretch in a VBox, but we ensure they are always full width -->
-                    <TextField fx:id="usernameField" promptText="Enter your username"
-                               styleClass="input" VBox.vgrow="NEVER" HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="usernameField" promptText="Choose a unique username"
+                               styleClass="input"/>
                 </VBox>
 
+                <!-- Email Field (New) -->
+                <VBox spacing="8">
+                    <Label text="Email" styleClass="form-label"/>
+                    <TextField fx:id="emailField" promptText="Enter your email address"
+                               styleClass="input"/>
+                </VBox>
+
+                <!-- Password Field -->
                 <VBox spacing="8">
                     <Label text="Password" styleClass="form-label"/>
-                    <!-- Inputs naturally stretch in a VBox, but we ensure they are always full width -->
-                    <PasswordField fx:id="passwordField" promptText="Enter your password"
-                                   styleClass="input" VBox.vgrow="NEVER" HBox.hgrow="ALWAYS"/>
+                    <PasswordField fx:id="passwordField" promptText="Create a secure password"
+                                   styleClass="input"/>
                 </VBox>
 
-                <!-- Button is now directly in the card's VBox to allow it to stretch to the VBox width -->
-                <Button text="Login" onAction="#handleLogin"
+                <!-- Confirm Password Field (New) -->
+                <VBox spacing="8">
+                    <Label text="Confirm Password" styleClass="form-label"/>
+                    <PasswordField fx:id="confirmPasswordField" promptText="Re-enter your password"
+                                   styleClass="input"/>
+                </VBox>
+
+                <!-- Register Button -->
+                <Button text="Register" onAction="#handleRegister"
                         styleClass="btn-primary"/>
 
-                <!-- Secondary button (link style) -->
-                <Button text="Don't have an account? Create one" onAction="#handleRegister"
+                <!-- Login Link -->
+                <Button text="Already have an account? Log in" onAction="#handleLogin"
                         styleClass="toggle-link"/>
             </VBox>
 

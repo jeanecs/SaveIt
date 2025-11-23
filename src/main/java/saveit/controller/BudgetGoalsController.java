@@ -7,6 +7,13 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import saveit.model.DatabaseManager;
+import javafx.stage.Stage;
+import javafx.stage.Modality;
+import javafx.scene.Scene;
+import javafx.collections.FXCollections;
+import saveit.util.IconUtil;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -152,11 +159,15 @@ public class BudgetGoalsController {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Button editBtn = new Button("✎");
+        Button editBtn = new Button();
+        SVGPath editIcon = IconUtil.editIcon(.8, Color.LIGHTGRAY); // scale 1.2, color dark gray
+        editBtn.setGraphic(editIcon);
         editBtn.setOnAction(e -> showAddEditDialog(b));
         editBtn.getStyleClass().add("icon-btn");
 
-        Button delBtn = new Button("🗑");
+        Button delBtn = new Button();
+        SVGPath delIcon = IconUtil.deleteIcon(.8, Color.LIGHTGRAY); // scale 1.2, color dark red
+        delBtn.setGraphic(delIcon);
         delBtn.setOnAction(e -> {
             boolean ok = confirm("Delete budget", "Delete budget for '" + b.category + "'?");
             if (ok) deleteBudget(b);
@@ -168,7 +179,7 @@ public class BudgetGoalsController {
         Label period = new Label(capitalize(b.period));
         period.getStyleClass().add("category-subtitle");
 
-        Label spentLabel = new Label("₱" + formatMoney(b.spent));
+        Label spentLabel = new Label("\u20B1" + formatMoney(b.spent));
         spentLabel.getStyleClass().add(b.spent > b.limit ? "value-negative" : "value-positive");
 
         HBox spentRow = new HBox();
@@ -185,7 +196,7 @@ public class BudgetGoalsController {
 
         HBox remainingRow = new HBox();
         Label remText = new Label(b.spent > b.limit ? "Over by" : "Remaining");
-        Label remValue = new Label("₱" + formatMoney(Math.abs(b.limit - b.spent)));
+        Label remValue = new Label("\u20B1" + formatMoney(Math.abs(b.limit - b.spent)));
         remValue.getStyleClass().add(b.spent > b.limit ? "value-negative" : "value-positive");
         Region sp2 = new Region();
         HBox.setHgrow(sp2, Priority.ALWAYS);
@@ -193,7 +204,7 @@ public class BudgetGoalsController {
 
         HBox limitRow = new HBox();
         Label limText = new Label("Budget Limit");
-        Label limValue = new Label("₱" + formatMoney(b.limit));
+        Label limValue = new Label("\u20B1" + formatMoney(b.limit));
         Region sp3 = new Region();
         HBox.setHgrow(sp3, Priority.ALWAYS);
         limitRow.getChildren().addAll(limText, sp3, limValue);
@@ -207,73 +218,190 @@ public class BudgetGoalsController {
         double totalSpent = budgets.stream().mapToDouble(b -> b.spent).sum();
         double overallProgressVal = (totalBudgeted > 0) ? Math.min(totalSpent / totalBudgeted, 1.0) : 0.0;
 
-        totalBudgetedLabel.setText("₱" + formatMoney(totalBudgeted));
-        totalSpentLabel.setText("₱" + formatMoney(totalSpent));
-        remainingLabel.setText("₱" + formatMoney(Math.max(totalBudgeted - totalSpent, 0.0)));
+        totalBudgetedLabel.setText("\u20B1" + formatMoney(totalBudgeted));
+        totalSpentLabel.setText("\u20B1" + formatMoney(totalSpent));
+        remainingLabel.setText("\u20B1" + formatMoney(Math.max(totalBudgeted - totalSpent, 0.0)));
         overallProgress.setProgress(overallProgressVal);
     }
 
     // --- Add / Edit / Delete helpers ---
 
+//    private void showAddEditDialog(BudgetItem edit) {
+//        // Create a new Stage (modal)
+//        Stage dialogStage = new Stage();
+//        dialogStage.initModality(Modality.APPLICATION_MODAL); // makes it modal
+//        dialogStage.setTitle(edit == null ? "Add Budget" : "Edit Budget");
+//
+//        // Create form
+//        GridPane grid = new GridPane();
+//        grid.setHgap(8);
+//        grid.setVgap(8);
+//        grid.setPadding(new Insets(15));
+//
+//        TextField categoryField = new TextField();
+//        TextField limitField = new TextField();
+//        ChoiceBox<String> periodBox = new ChoiceBox<>();
+//        periodBox.getItems().addAll("monthly", "yearly");
+//        periodBox.setValue("monthly");
+//
+//        if (edit != null) {
+//            categoryField.setText(edit.category);
+//            limitField.setText(String.valueOf(edit.limit));
+//            periodBox.setValue(edit.period);
+//        }
+//
+//        grid.add(new Label("Category"), 0, 0);
+//        grid.add(categoryField, 1, 0);
+//        grid.add(new Label("Limit (₱)"), 0, 1);
+//        grid.add(limitField, 1, 1);
+//        grid.add(new Label("Period"), 0, 2);
+//        grid.add(periodBox, 1, 2);
+//
+//        // Buttons
+//        Button okBtn = new Button("OK");
+//        Button cancelBtn = new Button("Cancel");
+//        HBox btnBox = new HBox(10, okBtn, cancelBtn);
+//        btnBox.setPadding(new Insets(10));
+//        grid.add(btnBox, 1, 3);
+//
+//        VBox root = new VBox(10, grid);
+//        root.setPadding(new Insets(10));
+//        Scene scene = new Scene(root);
+//        // Apply your existing CSS
+//        scene.getStylesheets().add(getClass().getResource("/CSS/budget-styles.css").toExternalForm());
+//
+//        dialogStage.setScene(scene);
+//
+//        // Button actions
+//        okBtn.setOnAction(e -> {
+//            try {
+//                double lim = Double.parseDouble(limitField.getText().trim());
+//                String cat = categoryField.getText().trim();
+//                String per = periodBox.getValue();
+//                if (cat.isEmpty() || lim <= 0) {
+//                    showAlert(Alert.AlertType.WARNING, "Validation", "Please enter valid values.");
+//                    return;
+//                }
+//
+//                if (edit == null) {
+//                    insertBudgetToDB(cat, lim, per);
+//                } else {
+//                    updateBudgetInDB(edit.id, cat, lim, per);
+//                }
+//
+//                dialogStage.close();
+//            } catch (NumberFormatException ex) {
+//                showAlert(Alert.AlertType.WARNING, "Validation", "Limit must be a number.");
+//            }
+//        });
+//
+//        cancelBtn.setOnAction(e -> dialogStage.close());
+//
+//        dialogStage.showAndWait(); // show modal
+//    }
+
     private void showAddEditDialog(BudgetItem edit) {
-        Dialog<BudgetFormResult> dialog = new Dialog<>();
-        dialog.setTitle(edit == null ? "Add Budget" : "Edit Budget");
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        GridPane grid = new GridPane();
-        grid.setHgap(8);
-        grid.setVgap(8);
-        grid.setPadding(new Insets(10));
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setResizable(false);
+        dialogStage.setTitle(edit == null ? "Add New Budget" : "Edit Budget");
 
-        TextField categoryField = new TextField();
+        // ==== Main Card ====
+        VBox card = new VBox(15);
+        card.getStyleClass().add("card");
+        card.setPadding(new Insets(25));
+        card.setMinWidth(360);
+
+        // Title
+        Label title = new Label(edit == null ? "Add New Budget" : "Edit Budget");
+        title.getStyleClass().add("page-title");
+
+        // Category field
+        Label catLabel = new Label("Category");
+        catLabel.getStyleClass().add("small-label");
+
+        ComboBox<String> categoryCombo = new ComboBox<>();
+        categoryCombo.setPromptText("Select category");
+        categoryCombo.setPrefWidth(Double.MAX_VALUE);
+
+// Expense categories (inspired by your snippet)
+        categoryCombo.setItems(FXCollections.observableArrayList(
+                "Food", "Bills", "Transportation", "Entertainment",
+                "Shopping", "Healthcare", "Education", "Other"
+        ));
+
+
+        // Limit field
+        Label limitLabel = new Label("Budget Limit (₱)");
+        limitLabel.getStyleClass().add("small-label");
+
         TextField limitField = new TextField();
-        ChoiceBox<String> periodBox = new ChoiceBox<>();
-        periodBox.getItems().addAll("monthly", "yearly");
-        periodBox.setValue("monthly");
+        limitField.setPromptText("Enter amount");
 
+        // Period field
+        Label periodLabel = new Label("Period");
+        periodLabel.getStyleClass().add("small-label");
+
+        ChoiceBox<String> periodBox = new ChoiceBox<>();
+        periodBox.getItems().addAll("Monthly", "Yearly");
+        periodBox.setValue("Monthly");
+
+        // Fill fields when editing
         if (edit != null) {
-            categoryField.setText(edit.category);
+            categoryCombo.setValue(edit.category);
             limitField.setText(String.valueOf(edit.limit));
-            periodBox.setValue(edit.period);
+            periodBox.setValue(edit.period.substring(0,1).toUpperCase() + edit.period.substring(1));
         }
 
-        grid.add(new Label("Category"), 0, 0);
-        grid.add(categoryField, 1, 0);
-        grid.add(new Label("Limit (₱)"), 0, 1);
-        grid.add(limitField, 1, 1);
-        grid.add(new Label("Period"), 0, 2);
-        grid.add(periodBox, 1, 2);
+        // Submit button
+        Button submitBtn = new Button(edit == null ? "Add Budget" : "Save Changes");
+        submitBtn.getStyleClass().add("primary-action-btn");
+        submitBtn.setMaxWidth(Double.MAX_VALUE);
 
-        dialog.getDialogPane().setContent(grid);
+        submitBtn.setOnAction(e -> {
+            try {
+                double lim = Double.parseDouble(limitField.getText().trim());
+                String cat = categoryCombo.getValue();
+                String per = periodBox.getValue().toLowerCase();
 
-        dialog.setResultConverter(btn -> {
-            if (btn == ButtonType.OK) {
-                try {
-                    double lim = Double.parseDouble(limitField.getText().trim());
-                    String cat = categoryField.getText().trim();
-                    String per = periodBox.getValue();
-                    if (cat.isEmpty() || lim <= 0) {
-                        showAlert(Alert.AlertType.WARNING, "Validation", "Please enter valid values.");
-                        return null;
-                    }
-                    return new BudgetFormResult(cat, lim, per);
-                } catch (NumberFormatException ex) {
-                    showAlert(Alert.AlertType.WARNING, "Validation", "Limit must be a number.");
-                    return null;
+                if (cat.isEmpty() || lim <= 0) {
+                    showAlert(Alert.AlertType.WARNING, "Validation", "Please enter valid values.");
+                    return;
                 }
+
+                if (edit == null) {
+                    insertBudgetToDB(cat, lim, per);
+                } else {
+                    updateBudgetInDB(edit.id, cat, lim, per);
+                }
+
+                dialogStage.close();
+
+            } catch (NumberFormatException ex) {
+                showAlert(Alert.AlertType.WARNING, "Validation", "Limit must be a number.");
             }
-            return null;
         });
 
-        Optional<BudgetFormResult> res = dialog.showAndWait();
-        res.ifPresent(r -> {
-            if (edit == null) {
-                insertBudgetToDB(r.category, r.limit, r.period);
-            } else {
-                updateBudgetInDB(edit.id, r.category, r.limit, r.period);
-            }
-        });
+        // Add everything into card
+        card.getChildren().addAll(
+                title,
+                catLabel, categoryCombo,
+                limitLabel, limitField,
+                periodLabel, periodBox,
+                submitBtn
+        );
+
+        Scene scene = new Scene(card);
+        scene.getStylesheets().add(
+                getClass().getResource("/CSS/budget-styles.css").toExternalForm()
+        );
+
+        dialogStage.setScene(scene);
+        dialogStage.showAndWait();
     }
+
+
 
     private void insertBudgetToDB(String category, double limit, String period) {
         Task<Void> t = new Task<>() {

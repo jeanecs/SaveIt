@@ -1,70 +1,77 @@
 /* Color Palette */
-.color-primary { -fx-background-color: #00BFA6; }
-.color-secondary { -fx-background-color: #2F4858; }
-.color-light-bg { -fx-background-color: #F8FAFB; }
+.color-primary { -fx-background-color: #00BFA6; } /* Teal/Cyan */
+.color-secondary { -fx-background-color: #2F4858; } /* Dark Blue/Gray */
+.color-light-bg { -fx-background-color: #F8FAFB; } /* Very Light Gray */
 .color-white { -fx-background-color: white; }
 
-/* Root gradient */
+/* Root gradient - Simplified to match the light, airy look of the image */
 .login-root {
-    -fx-background-color: linear-gradient(to bottom right, #00BFA6 0%, rgba(0, 191, 166, 0.4) 50%, #F8FAFB 100%);
-    -fx-alignment: center; /* Center content within the StackPane */
+    /* Blend primary color softly into the background */
+    -fx-background-color: linear-gradient(to bottom right, rgba(0, 191, 166, 0.4) 0%, rgba(0, 191, 166, 0.1) 50%, #F8FAFB 100%);
+    -fx-alignment: center;
 }
 
-/* Abstract shapes */
-/* These shapes are positioned relative to their parent Pane within the StackPane */
+/* Abstract shapes - Kept for subtle background texture */
 .bg-shape {
-    -fx-background-radius: 50%; /* Make them perfectly round */
-    -fx-effect: gaussian-blur(60); /* Apply blur */
-    -fx-opacity: 0.1; /* Slightly transparent */
-    -fx-position-shape: true; /* Ensure shape resizing is handled correctly */
+    -fx-background-radius: 50%;
+    -fx-effect: gaussian-blur(60);
+    -fx-opacity: 0.1;
+    -fx-position-shape: true;
 }
 
 .bg-shape.shape1 {
     -fx-background-color: white;
-    -fx-pref-width: 256px; /* 64 * 4 */
+    -fx-pref-width: 256px;
     -fx-pref-height: 256px;
-    -fx-translate-x: -250px; /* Adjust position */
-    -fx-translate-y: -150px; /* Adjust position */
+    -fx-translate-x: -250px;
+    -fx-translate-y: -150px;
 }
 
 .bg-shape.shape2 {
-    -fx-background-color: #2F4858;
-    -fx-pref-width: 384px; /* 96 * 4 */
+    -fx-background-color: #2F4858; /* Using secondary color for variety */
+    -fx-pref-width: 384px;
     -fx-pref-height: 384px;
-    -fx-translate-x: 250px; /* Adjust position */
-    -fx-translate-y: 150px; /* Adjust position */
+    -fx-translate-x: 250px;
+    -fx-translate-y: 150px;
 }
 
 /* Overall container for the login card and text */
 .login-container {
     -fx-padding: 30px;
-    -fx-spacing: 25px; /* Adjust spacing between sections */
+    -fx-spacing: 30px; /* Increased spacing between logo/title and card */
+    /* Add max width to this container so it doesn't stretch too wide on huge monitors */
+    -fx-max-width: 500px;
 }
 
-/* Logo and Title Section */
-.logo-wrapper {
-    -fx-background-color: white;
-    -fx-background-radius: 30px; /* Rounded corners for the outer white box */
-    -fx-padding: 15px; /* Padding around the inner logo box */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5); /* Soft shadow */
+/* Logo Section - Recreated the nested look */
+.logo-outer {
+    -fx-background-color: white; /* Ensure the outer ring is white */
+    -fx-background-radius: 20px; /* Rounded corners for the outer white box */
+    -fx-padding: 10px; /* Padding creates the white border around the inner box */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 10); /* Soft, pronounced shadow for the logo */
     -fx-alignment: center;
+    /* Fixed size for the logo structure - Enforced width to prevent stretching */
+    -fx-min-width: 90px;
+    -fx-max-width: 90px;
+    -fx-pref-height: 90px;
 }
 
-.logo-box {
-    -fx-background-color: linear-gradient(to bottom right, #00BFA6, #2F4858);
-    -fx-background-radius: 15px; /* More rounded than the React example, closer to the inner one */
-    -fx-pref-width: 64px;
-    -fx-pref-height: 64px;
+.logo-inner {
+    /* Teal background for the inner part */
+    -fx-background-color: #00BFA6;
+    -fx-background-radius: 15px;
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
     -fx-alignment: center;
 }
 
 .logo-icon {
-    -fx-font-size: 36px;
-    -fx-text-fill: white; /* Ensure the emoji is visible */
+    -fx-font-size: 32px;
+    -fx-text-fill: white;
 }
 
 .title {
-    -fx-font-size: 28px;
+    -fx-font-size: 26px;
     -fx-text-fill: #2F4858;
     -fx-font-weight: bold;
 }
@@ -77,69 +84,86 @@
 /* Login/Register Card */
 .card {
     -fx-background-color: white;
-    -fx-background-radius: 30px; /* Rounded corners for the card */
-    -fx-padding: 40px; /* Increased padding */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 10); /* Deeper shadow */
+    -fx-background-radius: 30px; /* Large rounded corners match the image */
+    -fx-padding: 40px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 30, 0, 0, 15); /* Very soft, diffuse shadow */
     -fx-alignment: center;
     -fx-spacing: 20px;
+
+    /* === RESPONSIVENESS FIX === */
+    /* Set max width to prevent it from getting too large, but allow it to shrink */
+    -fx-max-width: 450px;
+    /* Set a percentage width so it scales with the window up to max-width */
+    -fx-pref-width: 70%;
+    -fx-min-width: 300px; /* Don't let it shrink past this point */
 }
 
 .card-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 20px; /* Slightly smaller than the main title */
     -fx-text-fill: #2F4858;
     -fx-font-weight: bold;
     -fx-alignment: center;
+    -fx-padding: 0 0 10px 0; /* Add space below the card title */
 }
 
 .form-label {
     -fx-font-weight: bold;
     -fx-text-fill: #2F4858;
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
 }
 
 .input {
-    -fx-background-radius: 10px; /* Slightly more rounded than the card itself */
-    -fx-border-radius: 10px;
-    -fx-border-color: rgba(0,191,166,0.2); /* Soft border color */
+    -fx-background-color: #F8FAFB; /* Light background for input fields */
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: transparent; /* No visible border initially */
     -fx-border-width: 1px;
-    -fx-padding: 12px 15px; /* Increased padding inside input */
+    -fx-padding: 12px 15px;
     -fx-font-size: 14px;
     -fx-prompt-text-fill: rgba(47,72,88,0.4);
+    /* Input fields should naturally take up 100% of the VBox width */
 }
 
 .input:focused {
-    -fx-border-color: #00BFA6; /* Highlight on focus */
-    -fx-border-width: 2px;
+    -fx-border-color: #00BFA6;
+    -fx-border-width: 1px; /* Subtle focus ring */
+    -fx-background-color: white; /* Make background white on focus */
 }
 
-/* Primary Button */
+/* Primary Button (Login) */
 .btn-primary {
     -fx-background-color: #00BFA6;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 16px;
-    -fx-background-radius: 10px; /* Rounded button */
-    -fx-pref-height: 48px; /* Taller button */
-    -fx-pref-width: 100%; /* Full width */
-    -fx-effect: dropshadow(gaussian, rgba(0,191,166,0.3), 10, 0, 0, 5); /* Shadow matching primary color */
+    -fx-background-radius: 8px;
+    -fx-pref-height: 48px;
+    /* === RESPONSIVENESS FIX === */
+    /* Set pref-width to 100% so it stretches to the full width of the flexible card */
+    -fx-pref-width: 100%;
+    /* Remove fixed width */
+    -fx-effect: dropshadow(gaussian, rgba(0,191,166,0.3), 10, 0, 0, 5);
+    -fx-cursor: hand;
 }
 
 .btn-primary:hover {
-    -fx-background-color: rgba(0,191,166,0.9); /* Slight darken on hover */
+    -fx-background-color: #00A38E; /* Darken slightly on hover */
 }
 
-/* Toggle link button */
+/* Toggle link button (Create Account) */
+/* The FXML was fixed to use 'toggle-link' for the link text */
 .toggle-link {
     -fx-background-color: transparent;
     -fx-text-fill: #00BFA6;
     -fx-font-size: 14px;
-    -fx-underline: false; /* No underline by default */
+    -fx-underline: false;
     -fx-cursor: hand;
+    -fx-alignment: center;
 }
 
 .toggle-link:hover {
-    -fx-text-fill: rgba(0,191,166,0.8);
-    -fx-underline: true; /* Underline on hover */
+    -fx-text-fill: #00A38E;
+    -fx-underline: true;
 }
 
 /* Footer */
@@ -148,10 +172,9 @@
     -fx-font-size: 12px;
 }
 
-/* Additional styling for the message label, if used for errors/feedback */
+/* Message label */
 .message {
-    -fx-text-fill: red; /* Example for error messages */
+    -fx-text-fill: red;
     -fx-alignment: center;
     -fx-font-size: 14px;
-    -fx-padding: 0 0 10px 0;
 }

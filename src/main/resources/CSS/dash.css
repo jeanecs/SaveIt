@@ -1,0 +1,20 @@
+/* Add this to your dashboard.css file */
+
+.icon-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 4;
+}
+
+.icon-btn .svg-path {
+    -fx-fill: lightgray;
+}
+
+.icon-btn:hover .svg-path {
+    -fx-fill: #2F4858; /* Dark blue on hover for edit */
+}
+
+.delete-icon-btn:hover .svg-path {
+    -fx-fill: #F45B69; /* Red on hover for delete */
+}

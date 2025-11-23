@@ -8,7 +8,8 @@
       fx:controller="saveit.controller.DashboardController"
       spacing="20"
       style="-fx-padding: 20;"
-      prefHeight="900">
+      prefHeight="900"
+      stylesheets="@../CSS/dash.css">
 
 
     <!-- TOP CARDS -->
@@ -26,7 +27,7 @@
           ">
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="Total Income"
+                <Label text="Current Month Income"
                        style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.8);" />
 
                 <!-- Icon Box -->
@@ -44,11 +45,12 @@
                    text="₱0.00"
                    style="-fx-font-size: 30px; -fx-text-fill: white; -fx-font-weight: bold;" />
 
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label text="↑" style="-fx-font-size: 16px; -fx-text-fill: white;" />
-                <Label text="+12% from last month"
-                       style="-fx-text-fill: rgba(255,255,255,0.9);" />
-            </HBox>
+            <!-- DYNAMIC INCOME TREND LABEL -->
+            <Label fx:id="incomeTrendLabel"
+                   text="Calculating trend..."
+                   style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-weight: bold; -fx-font-size: 13px;" />
+            <!-- END DYNAMIC INCOME TREND LABEL -->
+
         </VBox>
 
 
@@ -64,7 +66,7 @@
           ">
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="Total Expenses"
+                <Label text="Current Month Expenses"
                        style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.8);" />
 
                 <StackPane style="
@@ -81,11 +83,12 @@
                    text="₱0.00"
                    style="-fx-font-size: 30px; -fx-text-fill: white; -fx-font-weight: bold;" />
 
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label text="↓" style="-fx-font-size: 16px; -fx-text-fill: white;" />
-                <Label text="-5% from last month"
-                       style="-fx-text-fill: rgba(255,255,255,0.9);" />
-            </HBox>
+            <!-- DYNAMIC EXPENSE TREND LABEL -->
+            <Label fx:id="expenseTrendLabel"
+                   text="Calculating trend..."
+                   style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-weight: bold; -fx-font-size: 13px;" />
+            <!-- END DYNAMIC EXPENSE TREND LABEL -->
+
         </VBox>
 
 
@@ -101,7 +104,7 @@
           ">
 
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="Balance Remaining"
+                <Label text="Current Month Balance"
                        style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.8);" />
 
                 <StackPane style="
@@ -118,11 +121,12 @@
                    text="₱0.00"
                    style="-fx-font-size: 30px; -fx-text-fill: white; -fx-font-weight: bold;" />
 
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label text="↑" style="-fx-font-size: 16px; -fx-text-fill: white;" />
-                <Label text="+8% from last month"
-                       style="-fx-text-fill: rgba(255,255,255,0.9);" />
-            </HBox>
+            <!-- DYNAMIC BALANCE TREND LABEL -->
+            <Label fx:id="balanceTrendLabel"
+                   text="Calculating trend..."
+                   style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-weight: bold; -fx-font-size: 13px;" />
+            <!-- END DYNAMIC BALANCE TREND LABEL -->
+
         </VBox>
 
     </HBox>

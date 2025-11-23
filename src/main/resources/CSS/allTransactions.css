@@ -1,0 +1,377 @@
+/* ========================================================= */
+/* 1. COLOR PALETTE & GLOBAL FONTS */
+/* ========================================================= */
+.primary-teal { -fx-base: #00BFA6; }
+.secondary-dark { -fx-base: #2F4858; }
+.background-light { -fx-base: #F8FAFB; }
+
+.income-color { -fx-text-fill: #00BFA6; } /* Teal */
+.expense-color { -fx-text-fill: #F4A261; } /* Orange */
+.net-color { -fx-text-fill: #2F4858; } /* Dark Blue */
+
+* {
+    -fx-font-family: "Inter", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.page-container {
+    -fx-background-color: #F8FAFB;
+}
+
+/* ========================================================= */
+/* 2. HEADER BAR */
+/* ========================================================= */
+.header-bar {
+    -fx-background-color: white;
+    -fx-pref-height: 60px;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.app-name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2F4858;
+}
+
+.logo-icon-small {
+    -fx-font-size: 20px;
+}
+
+.username-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #2F4858;
+}
+
+.account-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #A0A0A0;
+}
+
+.user-avatar {
+    -fx-background-color: #00BFA6;
+    -fx-background-radius: 15px;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-alignment: center;
+}
+
+.avatar-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.btn-logout {
+    -fx-background-color: white;
+    -fx-border-color: #00BFA6;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #00BFA6;
+    -fx-padding: 5px 15px;
+    -fx-cursor: hand;
+}
+
+.btn-logout:hover {
+    -fx-background-color: #E0FFFB;
+}
+
+/* ========================================================= */
+/* 3. SIDEBAR NAVIGATION */
+/* ========================================================= */
+.sidebar {
+    -fx-background-color: white;
+    -fx-min-width: 250px;
+    -fx-spacing: 5px;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2F4858;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-width: 200px;
+    -fx-padding: 10px 15px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: #F2F8FF;
+}
+
+.nav-button.active {
+    -fx-background-color: #00BFA6;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.nav-button.active .nav-icon {
+    -fx-fill: white;
+}
+
+.nav-icon {
+    -fx-font-size: 16px;
+    -fx-fill: #2F4858; /* Default icon color */
+    -fx-translate-y: 1px;
+}
+
+.footer-text {
+    -fx-font-size: 10px;
+    -fx-text-fill: #A0A0A0;
+}
+
+/* ========================================================= */
+/* 4. GENERAL CARD & PAGE ELEMENTS */
+/* ========================================================= */
+
+.page-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.page-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #666;
+}
+
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 5);
+}
+
+.btn-secondary {
+    -fx-background-color: white;
+    -fx-border-color: #00BFA6;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #00BFA6;
+    -fx-padding: 8px 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #E0FFFB;
+}
+
+.icon-button-graphic {
+    -fx-text-fill: #00BFA6;
+    -fx-font-size: 14px;
+}
+
+/* ========================================================= */
+/* 5. SUMMARY CARDS (Now using .card in FXML) */
+/* ========================================================= */
+
+.summary-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #A0A0A0;
+    -fx-font-weight: bold;
+}
+
+.summary-value {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+/* Custom colors for summary values */
+.summary-value.income-color { -fx-text-fill: #00BFA6; }
+.summary-value.expense-color { -fx-text-fill: #F4A261; }
+.summary-value.net-color { -fx-text-fill: #2F4858; }
+
+
+/* ========================================================= */
+/* 6. FILTER SECTION */
+/* We explicitly define card styles here for high specificity,
+   ensuring the card appearance applies correctly. */
+/* ========================================================= */
+.filter-section {
+    /* Copy of .card properties */
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 5);
+}
+
+.filter-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2F4858;
+}
+
+.filter-label-icon {
+    -fx-font-size: 18px;
+    -fx-text-fill: #00BFA6;
+}
+
+.search-box {
+    -fx-background-color: #F8FAFB;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 15px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.search-icon {
+    -fx-text-fill: #A0A0A0;
+    -fx-font-size: 16px;
+    -fx-padding: 0 5px 0 0;
+}
+
+.search-input {
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: #A0A0A0;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Dropdown/ComboBox Styles */
+.filter-dropdown {
+    -fx-background-color: #F8FAFB;
+    -fx-background-radius: 8px;
+    /* REMOVE FIXED WIDTH (prev was 150px) to allow HBox.hgrow to work */
+    -fx-padding: 8px 10px; /* Increased padding to match search box height */
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-pref-height: 40px; /* Ensures height consistency */
+    -fx-max-width: infinity; /* Ensures it takes up the calculated HBox.hgrow space */
+}
+
+.filter-dropdown .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.filter-dropdown .arrow {
+    -fx-background-color: #00BFA6;
+}
+
+.form-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #A0A0A0;
+    -fx-font-weight: normal;
+}
+
+/* ========================================================= */
+/* 7. TRANSACTION TABLE */
+/* ========================================================= */
+.transactions-count {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2F4858;
+}
+
+.transaction-table {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-padding: 0 0 10px 0; /* Padding inside the table container */
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 12px;
+}
+
+/* Table Header */
+.transaction-table .column-header-background {
+    -fx-background-color: transparent;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.transaction-table .column-header {
+    -fx-background-color: transparent;
+    -fx-padding: 15px 0;
+}
+
+.transaction-table .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2F4858;
+    -fx-font-size: 13px;
+}
+
+/* Table Rows */
+.transaction-table .table-row-cell {
+    -fx-cell-size: 50px;
+    -fx-border-color: #F0F0F0;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.transaction-table .table-row-cell:last-child {
+    -fx-border-width: 0;
+}
+
+.transaction-table .table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 5px;
+}
+
+/* MOCK Data Styling (used for HBox mock-up in FXML) */
+.table-row {
+    -fx-pref-height: 50px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: #F0F0F0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-spacing: 10px;
+    -fx-padding: 0 20px;
+}
+.table-row .label {
+    -fx-pref-width: 150px; /* Mock width distribution */
+    -fx-text-fill: #2F4858;
+}
+
+.table-date { -fx-pref-width: 100px; }
+.table-note { -fx-pref-width: 250px; }
+.amount-income { -fx-pref-width: 120px; -fx-text-fill: #00BFA6; }
+.amount-expense { -fx-pref-width: 120px; -fx-text-fill: #EE876E; } /* Reddish color for expense amount */
+.table-actions { -fx-pref-width: 100px; -fx-alignment: CENTER_LEFT; }
+
+/* Action Buttons in Table */
+.btn-icon {
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-padding: 5px;
+    -fx-background-radius: 4px;
+}
+
+.btn-icon:hover {
+    -fx-background-color: #F0F0F0;
+}
+
+/* TAG Styles (Pill background for categories and types) */
+.tag-style {
+    -fx-background-radius: 15px;
+    -fx-padding: 3px 8px;
+    -fx-font-size: 11px;
+    -fx-alignment: center;
+    -fx-min-width: 60px;
+    -fx-pref-width: 80px;
+}
+
+/* Type Tags */
+.tag-income-type {
+    -fx-text-fill: #00BFA6;
+    -fx-background-color: #E0FFFB;
+    -fx-pref-width: 70px;
+}
+
+.tag-expense-type {
+    -fx-text-fill: #F4A261;
+    -fx-background-color: #FFF2E0;
+    -fx-pref-width: 70px;
+}
+
+/* Category Tags */
+.tag-salary, .tag-food, .tag-transportation, .tag-bills, .tag-entertainment, .tag-freelance {
+    -fx-background-radius: 15px;
+    -fx-padding: 3px 8px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-text-fill: #2F4858;
+    -fx-background-color: #EAEAEA;
+    -fx-pref-width: 100px;
+}

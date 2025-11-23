@@ -1,0 +1,131 @@
+/* Color Palette based on the image */
+.main-root {
+    /* Main Background for the whole application */
+    -fx-background-color: #F8FAFB;
+}
+
+/* --- Sidebar (Left) --- */
+.sidebar {
+    -fx-background-color: white;
+    -fx-pref-width: 250px; /* Fixed width */
+    -fx-padding: 20px 0px 20px 0px; /* Top/Bottom padding, no left/right */
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 0 1 0 0; /* Right border only */
+}
+
+/* Sidebar Logo */
+.sidebar-logo {
+    -fx-padding: 0 20px 30px 20px;
+}
+
+.logo-icon-container {
+    -fx-background-color: #F6D7AA; /* Light Orange/Yellow */
+    -fx-background-radius: 8px;
+    -fx-padding: 4px;
+    -fx-alignment: center;
+}
+
+.logo-icon-text {
+    -fx-font-size: 16px;
+}
+
+.logo-text {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2F4858;
+}
+
+/* Navigation Buttons Container */
+.nav-buttons-container {
+    -fx-padding: 0 15px 0 15px; /* Padding for the buttons section */
+}
+
+/* Generic Nav Button Styling */
+/* Generic Nav Button Styling */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2F4858; /* Dark text for inactive state */
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-alignment: CENTER_LEFT;
+    -fx-max-width: infinity; /* Corrected: Allows the button to fill the width */
+    -fx-padding: 10px 15px;
+    -fx-background-radius: 10px; /* Slight rounding for hover/active state */
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: #F0F0F0; /* Light hover background */
+}
+
+/* Active Button State (Dashboard) */
+.nav-button.active {
+    -fx-background-color: #00BFA6; /* Primary Teal background */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* --- Top Header --- */
+/* --- Top Header --- */
+.top-header {
+    -fx-background-color: white;
+    -fx-padding: 10px 30px; /* Good horizontal padding */
+    -fx-spacing: 15px;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 0 0 1 0; /* Bottom border only */
+    -fx-alignment: CENTER; /* Changed to CENTER for vertical alignment */
+}
+
+.user-account-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+}
+
+/* Profile Circle */
+.profile-circle {
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+}
+
+.profile-background {
+    -fx-fill: #00BFA6; /* Teal background for the circle */
+}
+
+.profile-initial-text {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* Logout Button */
+.logout-button {
+    -fx-background-color: white;
+    -fx-text-fill: #2F4858;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-cursor: hand;
+    /* Aligns the text and emoji */
+    -fx-alignment: CENTER;
+}
+
+.logout-button:hover {
+    -fx-background-color: #F0F0F0;
+}
+
+/* --- Content Area (Center) --- */
+.content-scroll-pane {
+    -fx-background-color: #F8FAFB;
+    -fx-background: #F8FAFB;
+    /* Remove scroll bar background padding */
+    -fx-padding: 0;
+}
+
+.content-area {
+    -fx-background-color: #F8FAFB;
+    -fx-padding: 20px; /* Padding around the loaded content */
+    -fx-alignment: TOP_LEFT;
+}

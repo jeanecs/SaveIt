@@ -29,7 +29,7 @@ public class LoginController {
         }
 
         try (Connection conn = DatabaseManager.getConnection()) {
-            String sql = "SELECT id, password FROM users WHERE username = ?";
+            String sql = "SELECT id, username, password FROM users WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
@@ -37,12 +37,14 @@ public class LoginController {
             if (rs.next()) {
                 String dbPassword = rs.getString("password");
                 int userId = rs.getInt("id");
+                String retrievedUsername = rs.getString("username"); // Get the username
+
 
                 if (dbPassword.equals(password)) {
                     messageLabel.setText("Login successful!");
 
                     // Open dashboard and pass userId
-                    openDashboard(event, userId);
+                    openDashboard(event, userId, retrievedUsername);
 
                 } else {
                     messageLabel.setText("Invalid username or password.");
@@ -58,7 +60,7 @@ public class LoginController {
         }
     }
 
-    private void openDashboard(ActionEvent event, int userId) {
+    private void openDashboard(ActionEvent event, int userId, String username) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/main_layout.fxml"));
             Parent root = loader.load();
@@ -66,6 +68,11 @@ public class LoginController {
             // Get MainLayoutController, not DashboardController
             MainLayoutController controller = loader.getController();
             controller.setLoggedInUserId(userId); // this will also trigger showDashboard() in initialize()
+            controller.setUsername(username); // Set the username in the main layout controller
+
+            if (username != null && !username.isEmpty()) {
+                controller.setProfileInitial(username.substring(0, 1));
+            }
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));

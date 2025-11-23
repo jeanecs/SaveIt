@@ -173,7 +173,7 @@ public class AddTransactionController {
                 }
 
                 Transaction row = getTableView().getItems().get(getIndex());
-                setText("₱" + String.format("%,.2f", amount));
+                setText("\u20B1" + String.format("%,.2f", amount));
 
                 setStyle(
                         row.getType().equalsIgnoreCase("Income")
@@ -266,6 +266,12 @@ public class AddTransactionController {
     @FXML
     private void handleSave(ActionEvent event) {
         try {
+
+            if (userId <= 0) {
+                showAlert("No user set. Cannot save transaction to database.");
+                return;
+            }
+
             String type = typeComboBox.getValue();
             String category = categoryComboBox.getValue();
             double amount = Double.parseDouble(amountField.getText());
@@ -327,6 +333,10 @@ public class AddTransactionController {
     }
 
     private void saveTransactionToDB(Transaction transaction) {
+        if (userId <= 0) {
+            showAlert("No user set. Cannot save transaction to database.");
+            return;
+        }
         String sql = "INSERT INTO transactions (user_id, type, category, amount, date, notes) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseManager.getConnection();
@@ -340,6 +350,9 @@ public class AddTransactionController {
             stmt.setString(6, transaction.getNotes());
 
             stmt.executeUpdate();
+
+            MainLayoutController main = MainLayoutController.getInstance();
+            if (main != null) main.refreshDashboard();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -483,6 +496,9 @@ public class AddTransactionController {
                 stmt.setInt(1, transaction.getId());
                 stmt.executeUpdate();
                 loadTransactionsFromDB();
+
+                MainLayoutController main = MainLayoutController.getInstance();
+                if (main != null) main.refreshDashboard();
             } catch (SQLException e) {
                 e.printStackTrace();
                 showAlert("Failed to delete transaction.");

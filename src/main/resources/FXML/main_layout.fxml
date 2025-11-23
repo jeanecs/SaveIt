@@ -2,37 +2,69 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?> <!-- Important for padding -->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
 
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="saveit.controller.MainLayoutController"
-            prefWidth="800" prefHeight="600">
-
+            stylesheets="@../CSS/main.css">
 
     <!-- Top header -->
     <top>
-        <HBox spacing="10" style="-fx-background-color: white; -fx-padding: 10;">
-            <Label fx:id="welcomeLabel" text="Welcome!" style="-fx-font-size: 16px;"/>
+        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="top-header">
+            <!-- 1. Logo/App Name (Moved from sidebar) -->
+            <HBox alignment="CENTER_LEFT" spacing="8" styleClass="sidebar-logo">
+                <StackPane styleClass="logo-icon-container">
+                    <Label text="💰" styleClass="logo-icon-text"/>
+                </StackPane>
+                <Label text="SaveIT" styleClass="logo-text"/>
+            </HBox>
+
+            <!-- Spacer to push items to the right -->
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="usernameLabel" text="[Loading Username...]" styleClass="user-account-label"/>
+
+            <!-- Profile Icon (Circle with initial 'T') -->
+            <StackPane styleClass="profile-circle">
+                <Circle radius="15" styleClass="profile-background"/>
+                <Label fx:id="profileInitialLabel" text="T" styleClass="profile-initial-text"/>
+            </StackPane>
+
+            <!-- Logout Button -->
+            <Button text="Logout 🚪" onAction="#handleLogout" styleClass="logout-button"/>
         </HBox>
     </top>
 
+
     <!-- Left sidebar (hardcoded) -->
     <left>
-        <VBox spacing="10" prefWidth="200"
-              style="-fx-background-color: white; -fx-border-color: #F0F0F0; -fx-padding: 20;">
+        <VBox styleClass="sidebar">
+            <!-- 2. Navigation Buttons (Now at the top) -->
+            <VBox spacing="5" styleClass="nav-buttons-container">
 
-            <Label text="💰 SaveIT"
-                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2F4858;"/>
+                <!-- Dashboard (Active State) -->
+                <Button fx:id="dashboardButton" text="🏠  Dashboard" onAction="#showDashboard"
+                        styleClass="nav-button, secondary"/>
 
-            <Button text="🏠 Dashboard" onAction="#showDashboard"
-                    style="-fx-background-color: transparent; -fx-text-fill: #2F4858; -fx-font-size: 14px;"/>
-            <Button text="➕ Add Transaction" onAction="#showAddTransaction"
-                    style="-fx-background-color: transparent; -fx-text-fill: #2F4858; -fx-font-size: 14px;"/>
-            <Button text="📊 Budget Manager" onAction="#showBudget"
-                    style="-fx-background-color: transparent; -fx-text-fill: #2F4858; -fx-font-size: 14px;"/>
-            <Button text="🚪 Logout" onAction="#handleLogout"
-                    style="-fx-background-color: transparent; -fx-text-fill: #F45B69; -fx-font-size: 14px;"/>
+                <!-- Add Transaction -->
+                <Button fx:id="addTransactionButton" text="➕  Add Transaction" onAction="#showAddTransaction"
+                        styleClass="nav-button, secondary"/>
+
+                <Button fx:id="AllTransactionsButton" text="➕  All Transactions" onAction="#showAllTransactions"
+                        styleClass="nav-button, secondary"/>
+
+                <!-- Budget Manager -->
+                <Button fx:id="budgetButton" text="🎯  Budget Manager" onAction="#showBudget"
+                        styleClass="nav-button, secondary"/>
+
+                <!-- NEW: Settings Button -->
+                <Button fx:id="settingsButton" text="&#x2699;  Settings" onAction="#showSettings"
+                        styleClass="nav-button, secondary"/>
+
+            </VBox>
+            <!-- Removed spacers to keep buttons at the top -->
         </VBox>
     </left>
 
