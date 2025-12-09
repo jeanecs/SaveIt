@@ -94,7 +94,7 @@ public class DashboardController {
 
                 // Selection style - keep text visible
                 if (isSelected()) {
-                    baseStyle = "-fx-background-color: #E3F2FD; -fx-text-fill: #2F4858;";
+                    baseStyle = "-fx-background-color: #F5F5F7; -fx-text-fill: #2F4858;";
                 }
 
                 setStyle(baseStyle);

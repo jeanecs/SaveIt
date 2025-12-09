@@ -137,10 +137,6 @@
     -fx-font-weight: bold;
     -fx-font-size: 16px;
     -fx-background-radius: 8px;
-    -fx-pref-height: 48px;
-    /* === RESPONSIVENESS FIX === */
-    /* Set pref-width to 100% so it stretches to the full width of the flexible card */
-    -fx-pref-width: 100%;
     /* Remove fixed width */
     -fx-effect: dropshadow(gaussian, rgba(0,191,166,0.3), 10, 0, 0, 5);
     -fx-cursor: hand;

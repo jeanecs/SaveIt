@@ -77,6 +77,7 @@ public class LoginController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("SaveIT - Dashboard");
+            stage.setMaximized(true);
             stage.show();
 
         } catch (Exception e) {

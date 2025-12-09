@@ -57,7 +57,7 @@
                 </VBox>
 
                 <!-- Button is now directly in the card's VBox to allow it to stretch to the VBox width -->
-                <Button text="Login" onAction="#handleLogin"
+                <Button text="Login" onAction="#handleLogin" maxWidth="Infinity"
                         styleClass="btn-primary"/>
 
                 <!-- Secondary button (link style) -->
